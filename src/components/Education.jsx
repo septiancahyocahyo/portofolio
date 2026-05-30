@@ -17,7 +17,7 @@ export default function Education() {
     <section
       id="education"
       className="relative py-28 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #0A1F3A 0%, #062B43 50%, #0A1F3A 100%)' }}
+      style={{ background: 'linear-gradient(180deg, rgba(10,31,58,0.55) 0%, rgba(6,43,67,0.45) 50%, rgba(10,31,58,0.55) 100%)' }}
     >
       <div className="absolute top-1/2 left-0 w-72 h-72 rounded-full bg-nebula-dark/15 blur-[100px] pointer-events-none" />
 

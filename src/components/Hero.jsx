@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowDown, FiLinkedin, FiMail, FiPhone } from 'react-icons/fi';
 
@@ -13,6 +13,18 @@ export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0);
   const [display, setDisplay] = useState('');
   const [deleting, setDeleting] = useState(false);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const onMove = (e) => {
+      setMouse({
+        x: (e.clientX / window.innerWidth - 0.5) * 2,
+        y: (e.clientY / window.innerHeight - 0.5) * 2,
+      });
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
 
   useEffect(() => {
     const text = ROLES[roleIdx];
@@ -47,7 +59,7 @@ export default function Hero() {
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse at 30% 45%, rgba(4,69,104,0.8) 0%, rgba(6,43,67,0.9) 35%, rgba(10,31,58,1) 65%, rgba(33,5,53,0.6) 100%)',
+            'radial-gradient(ellipse at 30% 45%, rgba(4,69,104,0.5) 0%, rgba(6,43,67,0.4) 35%, rgba(10,31,58,0.55) 65%, rgba(33,5,53,0.35) 100%)',
         }}
       />
 
@@ -61,9 +73,32 @@ export default function Hero() {
         }}
       />
 
-      {/* Glow blobs */}
-      <div className="absolute top-24 left-8 w-80 h-80 rounded-full bg-space-medium/20 blur-[90px] pointer-events-none" />
-      <div className="absolute bottom-16 right-8 w-72 h-72 rounded-full bg-nebula-dark/25 blur-[90px] pointer-events-none" />
+      {/* Aurora blobs — react to mouse */}
+      <div
+        className="absolute top-24 left-8 w-96 h-96 rounded-full blur-[110px] pointer-events-none aurora-blob"
+        style={{
+          background: 'radial-gradient(circle, rgba(86,146,169,0.35) 0%, transparent 70%)',
+          transform: `translate(${mouse.x * 28}px, ${mouse.y * 20}px)`,
+          transition: 'transform 0.3s ease',
+        }}
+      />
+      <div
+        className="absolute bottom-16 right-8 w-80 h-80 rounded-full blur-[100px] pointer-events-none aurora-blob"
+        style={{
+          background: 'radial-gradient(circle, rgba(199,116,178,0.3) 0%, transparent 70%)',
+          transform: `translate(${mouse.x * -22}px, ${mouse.y * -16}px)`,
+          transition: 'transform 0.4s ease',
+          animationDelay: '4s',
+        }}
+      />
+      <div
+        className="absolute top-1/2 left-1/2 w-72 h-72 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[130px] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(123,52,126,0.18) 0%, transparent 70%)',
+          transform: `translate(calc(-50% + ${mouse.x * 12}px), calc(-50% + ${mouse.y * 10}px))`,
+          transition: 'transform 0.5s ease',
+        }}
+      />
 
       <div className="container mx-auto px-6 pt-24 pb-12 z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10 min-h-[calc(100vh-6rem)]">
@@ -85,10 +120,11 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
             >
-              <span
-                className="block text-6xl md:text-8xl gradient-text"
-              >
-                Septian
+              {/* Glitch text on name */}
+              <span className="relative inline-block" style={{ isolation: 'isolate' }}>
+                <span aria-hidden className="glitch-layer-1 absolute inset-0 block text-6xl md:text-8xl" style={{ color: '#C774B2', pointerEvents: 'none' }}>Septian</span>
+                <span aria-hidden className="glitch-layer-2 absolute inset-0 block text-6xl md:text-8xl" style={{ color: '#9DCDDC', pointerEvents: 'none' }}>Septian</span>
+                <span className="block text-6xl md:text-8xl gradient-text">Septian</span>
               </span>
               <span className="block text-4xl md:text-6xl text-white mt-1">
                 Cahyo Saputro
@@ -158,8 +194,12 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+            style={{
+              transform: `translate(${mouse.x * 18}px, ${mouse.y * 14}px)`,
+              transition: 'transform 0.12s linear',
+            }}
           >
-            <PlanetScene />
+            <PlanetScene mouse={mouse} />
           </motion.div>
         </div>
       </div>
@@ -181,7 +221,7 @@ export default function Hero() {
   );
 }
 
-function PlanetScene() {
+function PlanetScene({ mouse = { x: 0, y: 0 } }) {
   const particles = [
     { size: 5, top: '12%', right: '6%', color: '#9DCDDC', delay: '0s' },
     { size: 3, bottom: '18%', right: '8%', color: '#C774B2', delay: '1s' },
@@ -195,12 +235,12 @@ function PlanetScene() {
       className="relative flex items-center justify-center"
       style={{ width: 340, height: 340 }}
     >
-      {/* Ambient glow */}
+      {/* Ambient glow — shifts with mouse */}
       <div
         className="absolute inset-0 rounded-full pointer-events-none"
         style={{
-          background:
-            'radial-gradient(circle, rgba(86,146,169,0.1) 0%, rgba(66,13,74,0.07) 55%, transparent 80%)',
+          background: `radial-gradient(circle at ${50 + mouse.x * 20}% ${50 + mouse.y * 20}%, rgba(86,146,169,0.22) 0%, rgba(66,13,74,0.1) 55%, transparent 80%)`,
+          transition: 'background 0.15s ease',
         }}
       />
 

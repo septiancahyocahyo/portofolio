@@ -41,7 +41,7 @@ export default function Experience() {
     <section
       id="experience"
       className="relative py-28 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #0A1F3A 0%, #062B43 30%, #0A1F3A 100%)' }}
+      style={{ background: 'linear-gradient(180deg, rgba(10,31,58,0.55) 0%, rgba(6,43,67,0.45) 30%, rgba(10,31,58,0.55) 100%)' }}
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-nebula-deepest/15 blur-[120px] pointer-events-none" />
 

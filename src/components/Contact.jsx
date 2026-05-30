@@ -54,7 +54,7 @@ export default function Contact() {
     <section
       id="contact"
       className="relative py-28 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #0A1F3A 0%, #062B43 35%, #210535 80%, #0A1F3A 100%)' }}
+      style={{ background: 'linear-gradient(180deg, rgba(10,31,58,0.55) 0%, rgba(6,43,67,0.4) 35%, rgba(33,5,53,0.45) 80%, rgba(10,31,58,0.55) 100%)' }}
     >
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-nebula-deepest/20 blur-[140px] pointer-events-none" />
 

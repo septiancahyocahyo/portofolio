@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FiCode, FiShield, FiBarChart2 } from 'react-icons/fi';
 
@@ -81,7 +82,7 @@ export default function Projects() {
     <section
       id="projects"
       className="relative py-28 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #0A1F3A 0%, #062B43 40%, #0A1F3A 100%)' }}
+      style={{ background: 'linear-gradient(180deg, rgba(10,31,58,0.55) 0%, rgba(6,43,67,0.45) 40%, rgba(10,31,58,0.55) 100%)' }}
     >
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-nebula-deepest/20 blur-[120px] pointer-events-none" />
 
@@ -118,9 +119,37 @@ export default function Projects() {
 
 function ProjectCard({ project, index }) {
   const Icon = project.icon;
+  const cardRef = useRef(null);
+  const glowRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;   // 0–1
+    const y = (e.clientY - rect.top)  / rect.height;  // 0–1
+    const rotY =  (x - 0.5) * 18;
+    const rotX = -(y - 0.5) * 14;
+    el.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03) translateZ(8px)`;
+    el.style.transition = 'transform 0.05s linear';
+    if (glowRef.current) {
+      glowRef.current.style.background =
+        `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.07) 0%, transparent 55%)`;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    const el = cardRef.current;
+    if (!el) return;
+    el.style.transform = '';
+    el.style.transition = 'transform 0.7s cubic-bezier(.23,1,.32,1), box-shadow 0.4s ease';
+    if (glowRef.current) glowRef.current.style.background = 'none';
+  };
+
   return (
     <motion.div
-      className="group relative rounded-2xl overflow-hidden cursor-default"
+      ref={cardRef}
+      className="tilt-card group relative rounded-2xl overflow-hidden cursor-default"
       style={{
         background: project.gradient,
         border: `1px solid ${project.accentColor}33`,
@@ -130,16 +159,17 @@ function ProjectCard({ project, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{
-        boxShadow: `0 0 60px ${project.glowColor}, 0 20px 60px rgba(0,0,0,0.4)`,
-        y: -6,
-      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Top accent line */}
       <div
         className="h-px w-full"
         style={{ background: `linear-gradient(90deg, transparent, ${project.accentColor}, transparent)` }}
       />
+
+      {/* Mouse-tracking inner glow */}
+      <div ref={glowRef} className="absolute inset-0 pointer-events-none rounded-2xl" />
 
       <div className="p-7">
         {/* Header */}

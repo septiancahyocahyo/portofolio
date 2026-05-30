@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   SiJavascript, SiTypescript, SiPhp, SiHtml5, SiCss,
@@ -70,7 +71,7 @@ export default function Skills() {
     <section
       id="skills"
       className="relative py-28 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #0A1F3A 0%, #044568 40%, #0A1F3A 100%)' }}
+      style={{ background: 'linear-gradient(180deg, rgba(10,31,58,0.55) 0%, rgba(4,69,104,0.45) 50%, rgba(10,31,58,0.55) 100%)' }}
     >
       <div className="absolute top-0 right-1/4 w-80 h-80 rounded-full bg-nebula-dark/20 blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-72 h-72 rounded-full bg-space-medium/20 blur-[90px] pointer-events-none" />
@@ -120,41 +121,7 @@ export default function Skills() {
                 {cat.skills.map((skill, si) => {
                   const Icon = skill.icon;
                   return (
-                    <motion.div
-                      key={skill.name}
-                      className="relative flex flex-col items-center justify-center gap-2 p-4 rounded-2xl cursor-default overflow-hidden"
-                      style={{
-                        background: `linear-gradient(135deg, ${skill.color}18 0%, ${cat.color}10 100%)`,
-                        border: `1px solid ${skill.color}30`,
-                      }}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: ci * 0.08 + si * 0.06 }}
-                      whileHover={{
-                        scale: 1.07,
-                        boxShadow: `0 0 22px ${skill.color}55`,
-                        borderColor: `${skill.color}70`,
-                      }}
-                    >
-                      {/* Subtle radial glow behind icon */}
-                      <div
-                        className="absolute inset-0 rounded-2xl pointer-events-none"
-                        style={{ background: `radial-gradient(ellipse at 50% 40%, ${skill.color}22 0%, transparent 70%)` }}
-                      />
-                      {Icon
-                        ? <Icon size={28} style={{ color: skill.color, filter: `drop-shadow(0 0 6px ${skill.color}99)` }} />
-                        : <span style={{ fontSize: 22, color: skill.color, filter: `drop-shadow(0 0 6px ${skill.color}99)`, fontWeight: 700 }}>
-                            {skill.name.slice(0, 2)}
-                          </span>
-                      }
-                      <span
-                        className="font-mono text-xs font-semibold text-center leading-tight"
-                        style={{ color: '#e2e8f0' }}
-                      >
-                        {skill.name}
-                      </span>
-                    </motion.div>
+                    <HoloSkillCard key={skill.name} skill={skill} cat={cat} ci={ci} si={si} Icon={Icon} />
                   );
                 })}
               </div>
@@ -190,6 +157,75 @@ export default function Skills() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function HoloSkillCard({ skill, cat, ci, si, Icon }) {
+  const cardRef = useRef(null);
+  const shineRef = useRef(null);
+
+  const onMove = (e) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const rotY =  (x - 0.5) * 22;
+    const rotX = -(y - 0.5) * 18;
+    el.style.transform = `perspective(600px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.1) translateZ(10px)`;
+    el.style.transition = 'transform 0.05s linear';
+    el.style.boxShadow = `0 0 28px ${skill.color}77, 0 0 60px ${skill.color}33`;
+    el.style.borderColor = `${skill.color}90`;
+    if (shineRef.current) {
+      shineRef.current.style.background =
+        `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.18) 0%, transparent 60%)`;
+    }
+  };
+
+  const onLeave = () => {
+    const el = cardRef.current;
+    if (!el) return;
+    el.style.transform = '';
+    el.style.transition = 'transform 0.6s cubic-bezier(.23,1,.32,1), box-shadow 0.4s ease, border-color 0.3s ease';
+    el.style.boxShadow = '';
+    el.style.borderColor = '';
+    if (shineRef.current) shineRef.current.style.background = 'none';
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      className="relative flex flex-col items-center justify-center gap-2 p-4 rounded-2xl cursor-default overflow-hidden"
+      style={{
+        background: `linear-gradient(135deg, ${skill.color}18 0%, ${cat.color}10 100%)`,
+        border: `1px solid ${skill.color}30`,
+        transformStyle: 'preserve-3d',
+      }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, delay: ci * 0.08 + si * 0.06 }}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+    >
+      {/* Radial glow */}
+      <div
+        className="absolute inset-0 rounded-2xl pointer-events-none"
+        style={{ background: `radial-gradient(ellipse at 50% 40%, ${skill.color}22 0%, transparent 70%)` }}
+      />
+      {/* Mouse-tracking shine */}
+      <div ref={shineRef} className="absolute inset-0 rounded-2xl pointer-events-none" />
+
+      {Icon
+        ? <Icon size={30} style={{ color: skill.color, filter: `drop-shadow(0 0 8px ${skill.color}cc)` }} />
+        : <span style={{ fontSize: 22, color: skill.color, filter: `drop-shadow(0 0 8px ${skill.color}cc)`, fontWeight: 800, lineHeight: 1 }}>
+            {skill.name.slice(0, 2)}
+          </span>
+      }
+      <span className="font-mono text-xs font-semibold text-center leading-tight" style={{ color: '#e2e8f0' }}>
+        {skill.name}
+      </span>
+    </motion.div>
   );
 }
 

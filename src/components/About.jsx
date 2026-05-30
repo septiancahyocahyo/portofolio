@@ -20,7 +20,7 @@ export default function About() {
     <section
       id="about"
       className="relative py-28 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #0A1F3A 0%, #062B43 50%, #0A1F3A 100%)' }}
+      style={{ background: 'linear-gradient(180deg, rgba(10,31,58,0.55) 0%, rgba(6,43,67,0.45) 50%, rgba(10,31,58,0.55) 100%)' }}
     >
       {/* Decorative blobs */}
       <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-nebula-deepest/20 blur-[100px] pointer-events-none" />
