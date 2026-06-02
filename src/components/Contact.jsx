@@ -5,8 +5,8 @@ import emailjs from '@emailjs/browser';
 
 // ─── Isi dengan kredensial EmailJS kamu ──────────────────────────────────────
 const EMAILJS_SERVICE_ID  = 'porto_septian';   // contoh: 'service_xxxxxxx'
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // contoh: 'template_xxxxxxx'
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // contoh: 'xxxxxxxxxxxxxxxxxxxx'
+const EMAILJS_TEMPLATE_ID = 'porto_septian';  // contoh: 'template_xxxxxxx'
+const EMAILJS_PUBLIC_KEY  = 'WFsAhumYnHFGyUhyB';   // contoh: 'xxxxxxxxxxxxxxxxxxxx'
 // ─────────────────────────────────────────────────────────────────────────────
 
 const contactItems = [
