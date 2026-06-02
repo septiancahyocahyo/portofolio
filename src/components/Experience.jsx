@@ -13,8 +13,8 @@ const experiences = [
     bullets: [
       'Engineered and deployed 3 responsive web applications from scratch within a strict 6-month timeline using React.js and Tailwind CSS.',
       'Developed SINERGI (Government Risk Management System) — end-to-end risk lifecycle workflow with multi-role access control and dynamic data visualization using TypeScript, Zustand, and TanStack Query.',
-      'Developed ETLHP (Audit Management System) using PHP MVC featuring custom Glassmorphism design system, REST API integrations, and interactive Chart.js dashboards.',
-      'Architected a secure Admin Dashboard with advanced JWT token management (in-memory access tokens with silent refresh) and a highly modular component architecture.',
+      'Implemented ETLHP (Audit Management System) using PHP MVC featuring custom Glassmorphism design system, REST API integrations, and interactive Chart.js dashboards.',
+      'Built a responsive Company Profile website for Itjen Kemnaker using React.js, featuring public pages and an admin CMS with REST API integration, protected routing, and modular architecture.',
     ],
     tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Zustand', 'TanStack Query', 'PHP MVC', 'JWT'],
   },

@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { FiCode, FiShield, FiBarChart2 } from 'react-icons/fi';
+import { FiCode, FiShield, FiBarChart2, FiExternalLink } from 'react-icons/fi';
 
 const projects = [
   {
@@ -20,6 +20,7 @@ const projects = [
     ],
     tags: ['TypeScript', 'React.js', 'Zustand', 'TanStack Query', 'Tailwind CSS'],
     badge: 'Government · Deployed',
+    href: null,
   },
   {
     name: 'ETLHP',
@@ -38,24 +39,26 @@ const projects = [
     ],
     tags: ['PHP', 'MVC', 'Chart.js', 'Glassmorphism', 'REST API'],
     badge: 'Government · Deployed',
+    href: null,
   },
   {
-    name: 'Admin Dashboard',
-    subtitle: 'Secure React Admin Panel',
+    name: 'Itjen Kemnaker Portal',
+    subtitle: 'Company Profile & CMS',
     description:
-      'A highly secure admin dashboard built with React.js featuring advanced JWT token management with in-memory access tokens and silent refresh mechanism. Implements cursor-based pagination and a modular component architecture for scalability.',
+      'A responsive Company Profile website for the Inspectorate General of the Ministry of Manpower (Itjen Kemnaker). Features public-facing pages (Home, News, Profile, Publications, Regulations) and a full Content Management System for administrators.',
     icon: FiCode,
     accentColor: '#5692A9',
     glowColor: 'rgba(86,146,169,0.3)',
     gradient: 'linear-gradient(135deg, rgba(6,43,67,0.7), rgba(10,31,58,0.8))',
     features: [
-      'JWT in-memory token + silent refresh',
-      'Cursor-based pagination',
-      'Modular component architecture',
-      'Role-based access control',
+      'Public pages: Home, News, Profile',
+      'Publications & Regulations pages',
+      'Admin CMS with protected routing',
+      'REST API integration & optimized performance',
     ],
-    tags: ['React.js', 'JWT Auth', 'Tailwind CSS', 'REST API'],
+    tags: ['React.js', 'REST API', 'Tailwind CSS', 'CMS', 'Protected Routing'],
     badge: 'Government · Deployed',
+    href: 'https://itjen.kemnaker.go.id',
   },
   {
     name: 'Umrah Dashboard',
@@ -74,6 +77,7 @@ const projects = [
     ],
     tags: ['React.js', 'CoreUI', 'Figma', 'Chart.js', 'RESTful API'],
     badge: 'Banking · Deployed',
+    href: null,
   },
 ];
 
@@ -232,6 +236,23 @@ function ProjectCard({ project, index }) {
             </span>
           ))}
         </div>
+
+        {/* Visit link */}
+        {project.href && (
+          <a
+            href={project.href}
+            target="_blank"
+            rel="noreferrer"
+            onClick={e => e.stopPropagation()}
+            className="mt-5 flex items-center gap-2 font-mono text-xs transition-all duration-200 w-fit"
+            style={{ color: project.accentColor }}
+            onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.3)'}
+            onMouseLeave={e => e.currentTarget.style.filter = ''}
+          >
+            <FiExternalLink size={13} />
+            {project.href.replace('https://', '')}
+          </a>
+        )}
       </div>
 
       {/* Bottom accent line on hover */}

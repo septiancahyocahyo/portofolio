@@ -123,7 +123,7 @@ export default function About() {
             <div className="space-y-3 mb-8">
               {[
                 { icon: FiMail, text: 'septiancahyo67@gmail.com', href: 'mailto:septiancahyo67@gmail.com' },
-                { icon: FiPhone, text: '+62 896-7130-6514', href: 'tel:+6289671306514' },
+                { icon: FiPhone, text: '+62 896-7130-6514', href: 'https://wa.me/6289671306514' },
                 { icon: FiMapPin, text: 'Yogyakarta, Indonesia', href: null },
               ].map(({ icon: Icon, text, href }) => (
                 <div key={text} className="flex items-center gap-3 text-space-pale/65">

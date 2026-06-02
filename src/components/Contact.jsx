@@ -21,7 +21,7 @@ const contactItems = [
     icon: FiPhone,
     label: 'Phone / WhatsApp',
     value: '+62 896-7130-6514',
-    href: 'tel:+6289671306514',
+    href: 'https://wa.me/6289671306514',
     color: '#C774B2',
   },
   {

@@ -46,7 +46,7 @@ export default function Hero() {
   const socials = [
     { icon: FiLinkedin, href: 'https://www.linkedin.com/in/septian-cahyo', label: 'LinkedIn' },
     { icon: FiMail, href: 'mailto:septiancahyo67@gmail.com', label: 'Email' },
-    { icon: FiPhone, href: 'tel:+6289671306514', label: 'Phone' },
+    { icon: FiPhone, href: 'https://wa.me/6289671306514', label: 'Phone' },
   ];
 
   return (
