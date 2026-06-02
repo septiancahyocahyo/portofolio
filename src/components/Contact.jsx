@@ -1,6 +1,13 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { FiMail, FiPhone, FiLinkedin, FiMapPin, FiSend, FiCheck } from 'react-icons/fi';
+import { FiMail, FiPhone, FiLinkedin, FiMapPin, FiSend, FiCheck, FiAlertCircle } from 'react-icons/fi';
+import emailjs from '@emailjs/browser';
+
+// ─── Isi dengan kredensial EmailJS kamu ──────────────────────────────────────
+const EMAILJS_SERVICE_ID  = 'porto_septian';   // contoh: 'service_xxxxxxx'
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // contoh: 'template_xxxxxxx'
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // contoh: 'xxxxxxxxxxxxxxxxxxxx'
+// ─────────────────────────────────────────────────────────────────────────────
 
 const contactItems = [
   {
@@ -34,20 +41,29 @@ const contactItems = [
 ];
 
 export default function Contact() {
+  const formRef = useRef(null);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
 
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio Contact from ${form.name}`);
-    const body = encodeURIComponent(
-      `Hi Septian,\n\nMy name is ${form.name} (${form.email}).\n\n${form.message}`,
-    );
-    window.open(`mailto:septiancahyo67@gmail.com?subject=${subject}&body=${body}`);
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
+    setStatus('sending');
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        EMAILJS_PUBLIC_KEY,
+      );
+      setStatus('sent');
+      setForm({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 4000);
+    }
   };
 
   return (
@@ -154,11 +170,24 @@ export default function Contact() {
             transition={{ duration: 0.7 }}
           >
             <form
+              ref={formRef}
               onSubmit={handleSubmit}
               className="glass-card rounded-2xl p-8 space-y-5"
               style={{ boxShadow: '0 0 40px rgba(86,146,169,0.1)' }}
             >
               <div className="h-px" style={{ background: 'linear-gradient(90deg, #5692A9, #C774B2, transparent)' }} />
+
+              {/* Hidden field: send time — auto-populated on submit */}
+              <input
+                type="hidden"
+                name="send_time"
+                value={new Date().toLocaleString('id-ID', {
+                  weekday: 'long', year: 'numeric', month: 'long',
+                  day: 'numeric', hour: '2-digit', minute: '2-digit',
+                  timeZone: 'Asia/Jakarta', timeZoneName: 'short',
+                })}
+                readOnly
+              />
 
               <h3 className="font-sans font-bold text-white">Send a Message</h3>
 
@@ -211,14 +240,14 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full btn-primary justify-center"
-                style={sent ? { background: 'linear-gradient(135deg, #044568, #9DCDDC)' } : {}}
+                disabled={status === 'sending'}
+                className="w-full btn-primary justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+                style={status === 'sent' ? { background: 'linear-gradient(135deg, #044568, #9DCDDC)' } : status === 'error' ? { background: 'linear-gradient(135deg, #7B347E, #C774B2)' } : {}}
               >
-                {sent ? (
-                  <><FiCheck size={16} /> Message Opened!</>
-                ) : (
-                  <><FiSend size={16} /> Send Message</>
-                )}
+                {status === 'sending' && <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" /> Sending...</>}
+                {status === 'sent'    && <><FiCheck size={16} /> Message Sent!</>}
+                {status === 'error'   && <><FiAlertCircle size={16} /> Failed — Try Again</>}
+                {status === 'idle'    && <><FiSend size={16} /> Send Message</>}
               </button>
             </form>
           </motion.div>

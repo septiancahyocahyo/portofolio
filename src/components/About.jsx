@@ -67,13 +67,11 @@ export default function About() {
                   boxShadow: '0 0 50px rgba(86,146,169,0.3), 0 0 90px rgba(33,5,53,0.4)',
                 }}
               >
-                <div
-                  className="w-full h-full flex flex-col items-center justify-center"
-                  style={{ background: 'linear-gradient(145deg, #044568, #210535)' }}
-                >
-                  <span className="text-7xl mb-2" role="img" aria-label="developer">👨‍💻</span>
-                  <p className="text-space-light font-mono text-xs opacity-60">Photo Coming Soon</p>
-                </div>
+                <img
+                  src="/me.jpeg"
+                  alt="Septian Cahyo Saputro"
+                  className="w-full h-full object-cover object-center"
+                />
               </div>
 
               {/* Badge */}

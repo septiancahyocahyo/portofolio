@@ -64,7 +64,7 @@ export default function Education() {
                 <h3 className="font-sans font-bold text-white text-lg leading-snug">
                   Universitas Negeri Yogyakarta
                 </h3>
-                <p className="text-space-blue text-sm mt-1">Yogyakarta, Indonesia</p>
+                <p className="text-space-blue text-sm mt-1">Jakarta, Indonesia</p>
               </div>
             </div>
 
@@ -78,13 +78,13 @@ export default function Education() {
             <div className="space-y-4">
               <AchievementBadge
                 label="GPA"
-                value="3.78 / 4.00"
+                value="3.78/4.00"
                 color="#9DCDDC"
                 description="Cumulative Grade Point Average"
               />
               <AchievementBadge
                 label="ProTEFL UNY"
-                value="563 / 677"
+                value="563/677"
                 color="#C774B2"
                 description="English Proficiency Test"
               />
