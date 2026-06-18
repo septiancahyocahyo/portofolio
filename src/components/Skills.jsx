@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import {
   SiJavascript, SiTypescript, SiPhp, SiHtml5, SiCss,
   SiReact, SiTailwindcss, SiChartdotjs,
-  SiMysql, SiGit, SiFigma, SiCanva,
+  SiMysql, SiGit, SiFigma, SiCanva, SiRedux,
 } from 'react-icons/si';
 import { FiDatabase, FiCode, FiLayers, FiTool } from 'react-icons/fi';
 
@@ -33,6 +33,8 @@ const skillCategories = [
       { name: 'Zustand', icon: null, color: '#9DCDDC' },
       { name: 'TanStack Query', icon: null, color: '#FF4154' },
       { name: 'CoreUI', icon: null, color: '#5692A9' },
+      { name: 'Redux', icon: SiRedux, color: '#764ABC' },
+      { name: 'Jotai', icon: null, color: '#3178C6' },
     ],
   },
   {
