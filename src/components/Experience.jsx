@@ -3,36 +3,35 @@ import { FiCalendar, FiMapPin, FiBriefcase } from 'react-icons/fi';
 
 const experiences = [
   {
-    company: 'Kementerian Ketenagakerjaan',
-    role: 'Web Developer Intern',
+    company: 'Ministry of Manpower (Kemnaker)',
+    role: 'Web Developer',
     period: 'Nov 2025 – May 2026',
     location: 'Jakarta, Indonesia',
     type: 'Government Sector',
     color: '#5692A9',
     glowColor: 'rgba(86,146,169,0.4)',
     bullets: [
-      'Engineered and deployed 3 responsive web applications from scratch within a strict 6-month timeline using React.js and Tailwind CSS.',
-      'Developed SINERGI (Government Risk Management System) — end-to-end risk lifecycle workflow with multi-role access control and dynamic data visualization using TypeScript, Zustand, and TanStack Query.',
-      'Implemented ETLHP (Audit Management System) using PHP MVC featuring custom Glassmorphism design system, REST API integrations, and interactive Chart.js dashboards.',
-      'Built a responsive Company Profile website for Itjen Kemnaker using React.js, featuring public pages and an admin CMS with REST API integration, protected routing, and modular architecture.',
+      'Contributed to the development of 3 web applications for exposure management, risk management, and supervision & investigation processes.',
+      'Developed a risk management system supporting 5-stage risk lifecycle processes, 4-level approval workflows, and 6 user roles using React, TypeScript, Zustand, and TanStack Query.',
+      'Developed 16 application pages and integrated 11+ REST API endpoints with JWT authentication for an audit management system.',
+      <span>Developed a company profile website using React and modular component architecture. <a href="https://itjen.kemnaker.go.id" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition-colors">itjen.kemnaker.go.id</a></span>,
     ],
-    tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Zustand', 'TanStack Query', 'PHP MVC', 'JWT'],
+    tags: ['React.js', 'TypeScript', 'Tailwind CSS', 'Zustand', 'TanStack Query', 'JWT'],
   },
   {
     company: 'PT. Bank Syariah Indonesia',
-    role: 'Web Developer (Front End) Intern',
+    role: 'Web Developer',
     period: 'Sep 2024 – Mar 2025',
     location: 'Yogyakarta, Indonesia',
     type: 'Financial Sector',
     color: '#C774B2',
     glowColor: 'rgba(199,116,178,0.4)',
     bullets: [
-      'Designed an intuitive, user-centric Umrah dashboard interface in Figma, transforming complex financial data into clear, accessible visual charts.',
-      'Delivered pixel-perfect, highly responsive web interfaces by translating high-fidelity Figma designs into interactive frontend components using React.js and CoreUI.',
-      'Integrated backend RESTful APIs to enable real-time, data-driven insights ensuring precise live-metric rendering for optimized user decision-making.',
-      'Enhanced data accessibility for non-technical stakeholders through visually organized data tables and charts.',
+      'Designed user interfaces and workflows for an Umrah management system using Figma.',
+      'Implemented responsive dashboard interfaces using React and CoreUI, integrating 15+ REST API endpoints for transaction monitoring, approvals, and audit logs.',
+      'Developed interactive analytics dashboards using Chart.js and managed application state with Redux and Jotai.',
     ],
-    tags: ['React.js', 'CoreUI', 'Figma', 'RESTful API', 'Chart.js', 'Responsive Design'],
+    tags: ['React.js', 'CoreUI', 'Figma', 'Chart.js', 'Redux', 'Jotai'],
   },
 ];
 
