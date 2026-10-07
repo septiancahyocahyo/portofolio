@@ -1,12 +1,5 @@
 import { motion } from 'framer-motion';
 
-const stats = [
-  { value: '3.78', label: 'GPA / 4.00' },
-  { value: '3+', label: 'Apps Shipped' },
-  { value: '2', label: 'Internships' },
-  { value: '563', label: 'ProTEFL Score' },
-];
-
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
@@ -18,33 +11,35 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-28 px-6"
+      className="pt-28 px-6"
       style={{ background: '#0a0a0a', borderTop: '1px solid rgba(255,255,255,0.05)' }}
     >
       <div className="max-w-5xl mx-auto">
 
-        {/* Section header */}
-        <motion.div className="mb-16" {...fadeUp(0)}>
+        {/* Section label at the top */}
+        <motion.div className="mb-6" {...fadeUp(0)}>
           <span className="section-label">About Me</span>
-          <h2 className="section-title">
-            The Developer<br />
-            <span style={{ color: '#a0a0a0', fontStyle: 'italic', fontWeight: 300 }}>
-              Behind the Code
-            </span>
-          </h2>
-          <div className="section-divider" />
         </motion.div>
 
         {/* Main grid */}
         <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-          {/* ── Photo ── */}
+          {/* ── Left Column: Title + Photo ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           >
+            {/* Title */}
+            <h2 className="section-title mb-10">
+              The Developer<br />
+              <span style={{ color: '#a0a0a0', fontStyle: 'italic', fontWeight: 300 }}>
+                Behind the Code
+              </span>
+            </h2>
+
+            {/* Photo */}
             <div className="relative inline-block">
               {/* Photo */}
               <div
@@ -90,7 +85,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* ── Text ── */}
+          {/* ── Right Column: Subtitle + Description + Info + CTA ── */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -181,40 +176,6 @@ export default function About() {
             </div>
           </motion.div>
         </div>
-
-        {/* ── Stats ── */}
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 mt-20"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-        >
-          {stats.map((s, i) => (
-            <div
-              key={s.label}
-              className="py-8 px-6"
-              style={{
-                borderRight: i < stats.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
-              }}
-            >
-              <div
-                className="font-serif mb-1"
-                style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 300, color: '#ffffff', letterSpacing: '-0.02em' }}
-              >
-                {s.value}
-              </div>
-              <div
-                className="font-sans"
-                style={{ fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#b3b3b3ff' }}
-              >
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </motion.div>
-
       </div>
     </section>
   );

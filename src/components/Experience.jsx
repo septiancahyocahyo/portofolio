@@ -43,25 +43,19 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="py-28 px-6"
-      style={{ background: '#0a0a0a', borderTop: '1px solid rgba(255,255,255,0.05)' }}
+      className="pb-28 px-6"
+      style={{ background: '#0a0a0a',  }}
     >
       <div className="max-w-5xl mx-auto">
 
         {/* Section header */}
-        <motion.div className="mb-20" {...fadeUp(0)}>
+        <motion.div className="mb-10" {...fadeUp(0)}>
           <span className="section-label">Work Experience</span>
           <h2 className="section-title">
             My Journey<br />
             <span style={{ color: '#a0a0a0', fontStyle: 'italic', fontWeight: 300 }}>So Far</span>
           </h2>
           <div className="section-divider" />
-          <p
-            className="font-sans mt-4"
-            style={{ fontSize: '13px', color: '#bebebeff', fontWeight: 300, maxWidth: '440px' }}
-          >
-            Hands-on experience building production-grade systems across two industries.
-          </p>
         </motion.div>
 
         {/* Timeline entries */}

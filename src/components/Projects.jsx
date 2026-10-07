@@ -140,19 +140,39 @@ export default function Projects() {
 
                     {/* Name + subtitle */}
                     <div>
-                      <h3
-                        className="font-serif"
-                        style={{
-                          fontSize: 'clamp(1.25rem, 3.5vw, 2rem)',
-                          fontWeight: 400,
-                          color: isOpen ? '#ffffff' : '#c0c0c0',
-                          lineHeight: 1.2,
-                          transition: 'color 0.3s ease',
-                          marginBottom: '4px',
-                        }}
-                      >
-                        {project.name}
-                      </h3>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', flexWrap: 'wrap', marginBottom: '4px' }}>
+                        <h3
+                          className="font-serif"
+                          style={{
+                            fontSize: 'clamp(1.25rem, 3.5vw, 2rem)',
+                            fontWeight: 400,
+                            color: isOpen ? '#ffffff' : '#c0c0c0',
+                            lineHeight: 1.2,
+                            transition: 'color 0.3s ease',
+                          }}
+                        >
+                          {project.name}
+                        </h3>
+                        {project.href && (
+                          <a
+                            href={project.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="font-sans inline-flex items-center gap-1.5 hover:text-white transition-colors duration-200"
+                            style={{
+                              fontSize: '11px',
+                              letterSpacing: '0.12em',
+                              textTransform: 'uppercase',
+                              fontStyle: 'italic',
+                              color: '#ffffffff',
+                            }}
+                          >
+                            <FiExternalLink size={11} />
+                            {project.href.replace('https://', '')}
+                          </a>
+                        )}
+                      </div>
                       <p
                         className="font-sans"
                         style={{ fontSize: '11px', color: '#b3b3b3ff', fontWeight: 300 }}
@@ -252,10 +272,10 @@ export default function Projects() {
                               href={project.href}
                               target="_blank"
                               rel="noreferrer"
-                              className="font-sans inline-flex items-center gap-2 hover:text-white transition-colors duration-200"
+                              className="font-sans inline-flex items-center gap-1.5 hover:text-white transition-colors duration-200"
                               style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#ffffffff' }}
                             >
-                              <FiExternalLink size={11} />
+                              <FiExternalLink size={10} />
                               {project.href.replace('https://', '')}
                             </a>
                           )}

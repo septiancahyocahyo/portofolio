@@ -9,7 +9,7 @@ const EMAILJS_PUBLIC_KEY = 'WFsAhumYnHFGyUhyB';
 
 const contactInfo = [
   { label: 'Email', value: 'septiancahyo67@gmail.com', href: 'mailto:septiancahyo67@gmail.com' },
-  { label: 'Phone / WhatsApp', value: '+62 896-7130-6514', href: 'https://wa.me/6289671306514' },
+  { label: 'Phone', value: '+62 896-7130-6514', href: 'https://wa.me/6289671306514' },
   { label: 'LinkedIn', value: 'linkedin.com/in/septian-cahyo', href: 'https://www.linkedin.com/in/septian-cahyo' },
   { label: 'Location', value: 'Yogyakarta, Indonesia', href: null },
 ];

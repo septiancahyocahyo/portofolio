@@ -154,12 +154,7 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
       >
-        <span
-          className="font-sans"
-          style={{ fontSize: '8px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#7c7c7cff' }}
-        >
-          Scroll
-        </span>
+
         <motion.div
           style={{ width: 1, height: 40, background: 'rgba(255,255,255,0.12)', originY: 0 }}
           animate={{ scaleY: [0, 1, 0] }}
