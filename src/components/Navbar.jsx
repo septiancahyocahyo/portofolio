@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 
 const NAV_LINKS = [
-  { href: '#home', label: 'Home' },
-  { href: '#about', label: 'About' },
+  { href: '#home',       label: 'Home' },
+  { href: '#about',      label: 'About' },
   { href: '#experience', label: 'Experience' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#education', label: 'Education' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#skills',     label: 'Skills' },
+  { href: '#projects',   label: 'Projects' },
+  { href: '#education',  label: 'Education' },
+  { href: '#contact',    label: 'Contact' },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState('home');
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled]   = useState(false);
+  const [active, setActive]       = useState('home');
+  const [menuOpen, setMenuOpen]   = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -27,87 +27,96 @@ export default function Navbar() {
         }
       }
     };
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={scrolled
-        ? { background: 'rgba(9,9,11,0.85)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(197, 168, 128, 0.1)', padding: '12px 0' }
-        : { padding: '20px 0' }
+      style={
+        scrolled
+          ? {
+              background: 'rgba(10,10,10,0.92)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              borderBottom: '1px solid rgba(255,255,255,0.05)',
+              padding: '14px 0',
+            }
+          : { padding: '22px 0' }
       }
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#home" className="flex items-center gap-3 group">
-          <div
-            className="w-9 h-9 flex items-center justify-center font-serif text-sm text-space-blue border border-space-blue/20 transition-all duration-300 group-hover:scale-110"
-          >
-            SC
-          </div>
-          <span className="hidden sm:block font-serif text-white text-sm tracking-wide">
-            Septian Cahyo
-          </span>
+      <div className="max-w-5xl mx-auto px-6 flex items-center justify-between">
+
+        {/* Name — left */}
+        <a
+          href="#home"
+          className="font-serif text-white text-sm tracking-wide transition-opacity duration-200 hover:opacity-70"
+          style={{ fontWeight: 400, fontSize: '15px', letterSpacing: '0.02em' }}
+        >
+          Septian Cahyo Saputro
         </a>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-7">
+        {/* Desktop links — right */}
+        <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map(link => {
-            const id = link.href.slice(1);
+            const id       = link.href.slice(1);
             const isActive = active === id;
             return (
               <a
                 key={id}
                 href={link.href}
-                className="font-mono text-[11px] uppercase tracking-wider transition-all duration-200 relative"
-                style={{
-                  color: isActive ? '#c5a880' : 'rgba(244,244,245,0.55)',
-                }}
+                className="relative font-sans text-[10px] uppercase tracking-[0.18em] transition-colors duration-200"
+                style={{ color: isActive ? '#ffffff' : '#555555' }}
               >
                 {link.label}
                 {isActive && (
                   <span
-                    className="absolute -bottom-1 left-0 right-0 h-px"
-                    style={{ background: 'linear-gradient(90deg, transparent, #c5a880, transparent)' }}
+                    className="absolute -bottom-1 left-0 right-0 h-px bg-white"
+                    style={{ opacity: 0.25 }}
                   />
                 )}
               </a>
             );
           })}
-          <a
-            href="#contact"
-            className="btn-primary !px-5 !py-2 !text-xs uppercase tracking-wider ml-2"
-          >
-            Hire Me
-          </a>
         </div>
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 flex flex-col gap-1.5"
+          className="md:hidden flex flex-col gap-[5px] p-1"
           onClick={() => setMenuOpen(o => !o)}
           aria-label="Toggle menu"
         >
-          <span className={`block w-6 h-0.5 bg-space-light transition-all duration-300 origin-center ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <span className={`block w-6 h-0.5 bg-space-light transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block w-6 h-0.5 bg-space-light transition-all duration-300 origin-center ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          <span
+            className="block w-5 h-px bg-white transition-all duration-300 origin-center"
+            style={{ transform: menuOpen ? 'rotate(45deg) translate(3px, 3px)' : 'none', opacity: menuOpen ? 1 : 0.6 }}
+          />
+          <span
+            className="block w-5 h-px bg-white transition-all duration-300"
+            style={{ opacity: menuOpen ? 0 : 0.6 }}
+          />
+          <span
+            className="block w-5 h-px bg-white transition-all duration-300 origin-center"
+            style={{ transform: menuOpen ? 'rotate(-45deg) translate(3px, -3px)' : 'none', opacity: menuOpen ? 1 : 0.6 }}
+          />
         </button>
       </div>
 
       {/* Mobile menu */}
       <div
         className="md:hidden overflow-hidden transition-all duration-300"
-        style={{ maxHeight: menuOpen ? '400px' : '0' }}
+        style={{ maxHeight: menuOpen ? '360px' : '0' }}
       >
-        <div className="mx-4 mt-2 rounded-none border border-space-blue/10 bg-space-medium/90 p-4">
+        <div
+          className="max-w-5xl mx-auto px-6 py-4"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
+        >
           {NAV_LINKS.map(link => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="block py-2.5 px-3 font-mono text-xs uppercase tracking-wider text-space-pale/70 hover:text-space-light hover:bg-space-medium/20 transition-all duration-200"
+              className="block py-3 font-sans text-[10px] uppercase tracking-[0.18em] text-mono-muted hover:text-white transition-colors duration-200"
             >
               {link.label}
             </a>

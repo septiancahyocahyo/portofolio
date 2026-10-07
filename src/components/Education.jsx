@@ -1,8 +1,20 @@
 import { motion } from 'framer-motion';
-import { FiAward, FiBook } from 'react-icons/fi';
+
+const education = {
+  institution: 'Universitas Negeri Yogyakarta',
+  location: 'Yogyakarta, Indonesia',
+  degree: 'Bachelor of Engineering (B.Eng.)',
+  major: 'Information Technology',
+  period: 'Aug 2021 – Aug 2025',
+  achievements: [
+    { label: 'GPA', value: '3.78', suffix: '/ 4.00', desc: 'Cumulative Grade Point Average' },
+    { label: 'ProTEFL', value: '563', suffix: '/ 677', desc: 'English Proficiency Test Score' },
+  ],
+};
 
 const org = {
-  name: 'Himpunan Mahasiswa Elektronika dan Informatika FT UNY',
+  name: 'Himpunan Mahasiswa Elektronika dan Informatika',
+  sub: 'FT UNY — Student Association',
   role: 'Public Relations',
   period: 'Mar 2023 – Dec 2023',
   highlights: [
@@ -12,96 +24,201 @@ const org = {
   ],
 };
 
+const fadeUp = (delay = 0) => ({
+  initial:     { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport:    { once: true, margin: '-80px' },
+  transition:  { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
+});
+
 export default function Education() {
   return (
     <section
       id="education"
-      className="relative py-28 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #09090b 0%, #121215 50%, #09090b 100%)' }}
+      className="py-28 px-6"
+      style={{ background: '#111111', borderTop: '1px solid rgba(255,255,255,0.05)' }}
     >
-      <div className="absolute top-1/2 left-0 w-72 h-72 rounded-full bg-nebula-dark/15 blur-[100px] pointer-events-none" />
+      <div className="max-w-5xl mx-auto">
 
-      <div className="container mx-auto relative z-10 max-w-4xl">
-
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 50, scale: 0.85 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.1, ease: [0.34, 1.56, 0.64, 1] }}
-        >
-          <p className="section-tag mb-3">&gt;_ Education</p>
-          <h2 className="section-heading">
+        {/* Section header */}
+        <motion.div className="mb-20" {...fadeUp(0)}>
+          <span className="section-label">Education</span>
+          <h2 className="section-title">
             Academic{' '}
-            <span className="gradient-text">Background</span>
+            <span style={{ color: '#a0a0a0', fontStyle: 'italic', fontWeight: 300 }}>Background</span>
           </h2>
+          <div className="section-divider" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start mt-12">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-          {/* Education column */}
-          <motion.div
-            className="lg:border-r border-space-blue/10 lg:pr-16"
-            initial={{ opacity: 0, x: -70, rotateY: -10 }}
-            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <FiBook size={16} className="text-space-blue" />
-              <h3 className="font-serif font-light text-white text-xl">Academic Qualification</h3>
+          {/* ── Education column ── */}
+          <motion.div {...fadeUp(0.1)}>
+            <span className="section-label" style={{ marginBottom: '1.75rem', display: 'block' }}>
+              Academic Qualification
+            </span>
+
+            {/* Institution */}
+            <h3
+              className="font-serif mb-1"
+              style={{ fontSize: 'clamp(1.35rem, 3vw, 1.9rem)', fontWeight: 400, color: '#ffffff', lineHeight: 1.2 }}
+            >
+              {education.institution}
+            </h3>
+            <p
+              className="font-sans mb-6"
+              style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#444444' }}
+            >
+              {education.location}
+            </p>
+
+            {/* Degree info */}
+            <div
+              style={{
+                padding: '1.25rem 1.5rem',
+                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#0a0a0a',
+                marginBottom: '1.5rem',
+              }}
+            >
+              <p
+                className="font-sans mb-1"
+                style={{ fontSize: '13px', color: '#a0a0a0', fontWeight: 400 }}
+              >
+                {education.degree}
+              </p>
+              <p
+                className="font-sans"
+                style={{ fontSize: '12px', color: '#555555', fontWeight: 300 }}
+              >
+                {education.major}
+              </p>
+              <p
+                className="font-sans mt-3"
+                style={{ fontSize: '10px', letterSpacing: '0.1em', color: '#333333' }}
+              >
+                {education.period}
+              </p>
             </div>
 
-            <div className="mb-6">
-              <h4 className="text-2xl font-serif font-light text-white leading-tight">Universitas Negeri Yogyakarta</h4>
-              <p className="text-space-blue text-sm mt-1">Yogyakarta, Indonesia</p>
-              <p className="text-space-pale/80 font-medium mt-3">Bachelor of Engineering (B.Eng.)</p>
-              <p className="text-space-light text-sm">Information Technology &bull; Aug 2021 – Aug 2025</p>
-            </div>
-
-            {/* Achievements */}
-            <div className="space-y-4 mt-8">
-              <AchievementBadge
-                label="GPA"
-                value="3.78/4.00"
-                color="#e2d1bc"
-                description="Cumulative Grade Point Average"
-              />
-              <AchievementBadge
-                label="ProTEFL Score"
-                value="563/677"
-                color="#b39274"
-                description="English Proficiency Test"
-              />
+            {/* Achievement blocks */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+              {education.achievements.map((ach) => (
+                <div
+                  key={ach.label}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '1rem 1.5rem',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                    background: '#0a0a0a',
+                    marginBottom: '6px',
+                  }}
+                >
+                  <div>
+                    <p
+                      className="font-sans"
+                      style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#333333', marginBottom: '3px' }}
+                    >
+                      {ach.label}
+                    </p>
+                    <p
+                      className="font-sans"
+                      style={{ fontSize: '11px', color: '#444444', fontWeight: 300 }}
+                    >
+                      {ach.desc}
+                    </p>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <span
+                      className="font-serif"
+                      style={{ fontSize: '2rem', fontWeight: 300, color: '#ffffff', letterSpacing: '-0.02em' }}
+                    >
+                      {ach.value}
+                    </span>
+                    <span
+                      className="font-sans"
+                      style={{ fontSize: '11px', color: '#444444', marginLeft: '4px' }}
+                    >
+                      {ach.suffix}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </motion.div>
 
-          {/* Organization column */}
-          <motion.div
-            initial={{ opacity: 0, x: 70, rotateY: 10 }}
-            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <FiAward size={16} className="text-space-blue" />
-              <h3 className="font-serif font-light text-white text-xl">Leadership Experience</h3>
+          {/* ── Leadership column ── */}
+          <motion.div {...fadeUp(0.2)}>
+            <span className="section-label" style={{ marginBottom: '1.75rem', display: 'block' }}>
+              Leadership Experience
+            </span>
+
+            {/* Org name */}
+            <h3
+              className="font-serif mb-1"
+              style={{ fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)', fontWeight: 400, color: '#ffffff', lineHeight: 1.35 }}
+            >
+              {org.name}
+            </h3>
+            <p
+              className="font-sans mb-6"
+              style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#444444' }}
+            >
+              {org.sub}
+            </p>
+
+            {/* Role info box */}
+            <div
+              style={{
+                padding: '1.25rem 1.5rem',
+                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#0a0a0a',
+                marginBottom: '1.5rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+              }}
+            >
+              <div>
+                <p
+                  className="font-sans mb-1"
+                  style={{ fontSize: '13px', color: '#a0a0a0', fontWeight: 400 }}
+                >
+                  {org.role}
+                </p>
+                <p
+                  className="font-sans"
+                  style={{ fontSize: '10px', color: '#333333', letterSpacing: '0.08em' }}
+                >
+                  {org.period}
+                </p>
+              </div>
             </div>
 
-            <div className="mb-6">
-              <h4 className="text-xl font-serif font-light text-white leading-snug">
-                {org.name}
-              </h4>
-              <p className="text-space-blue text-sm mt-1">{org.role}</p>
-              <p className="text-space-pale/45 font-mono text-xs mt-0.5">{org.period}</p>
-            </div>
-
-            <ul className="space-y-3">
+            {/* Highlights */}
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {org.highlights.map((h, i) => (
-                <li key={i} className="flex gap-3 text-space-pale/65 text-sm leading-relaxed font-light">
-                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-space-blue flex-shrink-0" />
-                  {h}
+                <li
+                  key={i}
+                  style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}
+                >
+                  <span
+                    style={{
+                      flexShrink: 0,
+                      marginTop: '9px',
+                      width: '4px',
+                      height: '1px',
+                      background: 'rgba(255,255,255,0.15)',
+                    }}
+                  />
+                  <span
+                    className="font-sans"
+                    style={{ fontSize: '13px', color: '#787878', lineHeight: 1.85, fontWeight: 300 }}
+                  >
+                    {h}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -109,23 +226,5 @@ export default function Education() {
         </div>
       </div>
     </section>
-  );
-}
-
-function AchievementBadge({ label, value, description }) {
-  return (
-    <div
-      className="flex items-center justify-between p-4 border border-space-blue/10 bg-space-medium/10"
-    >
-      <div>
-        <p className="font-mono text-[9px] uppercase tracking-wider text-space-blue/70">{label}</p>
-        <p className="text-[11px] text-space-pale/50 mt-0.5 font-light">{description}</p>
-      </div>
-      <p
-        className="text-xl font-serif font-light text-white"
-      >
-        {value}
-      </p>
-    </div>
   );
 }

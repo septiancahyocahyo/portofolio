@@ -1,148 +1,180 @@
 import { motion } from 'framer-motion';
-import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 
 const stats = [
   { value: '3.78', label: 'GPA / 4.00' },
-  { value: '3+', label: 'Apps Shipped' },
-  { value: '2', label: 'Internships' },
-  { value: '563', label: 'ProTEFL Score' },
+  { value: '3+',   label: 'Apps Shipped' },
+  { value: '2',    label: 'Internships' },
+  { value: '563',  label: 'ProTEFL Score' },
 ];
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-100px" },
-  transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
-});
-
-// Clip-path curtain: text reveals by widening from center
-const curtainReveal = (delay = 0) => ({
-  initial: { opacity: 0, clipPath: 'inset(0 50% 0 50%)' },
-  whileInView: { opacity: 1, clipPath: 'inset(0 0% 0 0%)' },
-  viewport: { once: true, margin: '-80px' },
-  transition: { duration: 1.1, delay, ease: [0.16, 1, 0.3, 1] },
+  initial:    { opacity: 0, y: 24 },
+  whileInView:{ opacity: 1, y: 0 },
+  viewport:   { once: true, margin: '-80px' },
+  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay },
 });
 
 export default function About() {
   return (
     <section
       id="about"
-      className="relative py-0 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #09090b 0%, #121215 50%, #09090b 100%)' }}
+      className="py-28 px-6"
+      style={{ background: '#0a0a0a', borderTop: '1px solid rgba(255,255,255,0.05)' }}
     >
-      {/* Decorative blobs */}
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-nebula-deepest/20 blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-space-medium/15 blur-[90px] pointer-events-none" />
-
-      <div className="container mx-auto relative z-10">
+      <div className="max-w-5xl mx-auto">
 
         {/* Section header */}
-        <motion.div className="text-center mb-16" {...curtainReveal()}>
-          <p className="section-tag mb-3">&gt;_ About Me</p>
-          <h2 className="section-heading">
-            The{' '}
-            <span className="gradient-text">Developer</span>
-            {' '}Behind the Code
+        <motion.div className="mb-16" {...fadeUp(0)}>
+          <span className="section-label">About Me</span>
+          <h2 className="section-title">
+            The Developer<br />
+            <span style={{ color: '#a0a0a0', fontStyle: 'italic', fontWeight: 300 }}>
+              Behind the Code
+            </span>
           </h2>
+          <div className="section-divider" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        {/* Main grid */}
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-          {/* ── AVATAR ── */}
+          {/* ── Photo ── */}
           <motion.div
-            className="flex justify-center"
-            initial={{ opacity: 0, scale: 0.7, rotate: -4 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.0, ease: [0.34, 1.56, 0.64, 1] }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           >
-            <div className="relative">
-              {/* Avatar container */}
+            <div className="relative inline-block">
+              {/* Photo */}
               <div
-                className="relative w-64 h-64 rounded-full overflow-hidden"
                 style={{
-                  border: '1px solid rgba(197, 168, 128, 0.4)',
-                  boxShadow: '0 10px 40px rgba(0, 0, 0, 0.4)',
+                  width: '280px',
+                  height: '340px',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  overflow: 'hidden',
+                  position: 'relative',
                 }}
               >
                 <img
                   src="/me.jpeg"
                   alt="Septian Cahyo Saputro"
-                  className="w-full h-full object-cover object-center"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(15%)' }}
                 />
               </div>
 
-              {/* Badge */}
-              <motion.div
-                className="absolute -bottom-3 -right-3 glass-card px-4 py-2.5 rounded-none"
-                animate={{ y: [0, -4, 0] }}
-                transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+              {/* Static badge — bottom right */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '-1px',
+                  right: '-1px',
+                  background: '#111111',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  padding: '10px 14px',
+                }}
               >
-                <p className="text-space-blue font-mono text-[9px] uppercase tracking-wider">Fresh Grad</p>
-                <p className="text-white font-bold text-xs">Frontend Dev</p>
-              </motion.div>
-
-              {/* Top badge */}
-              <motion.div
-                className="absolute -top-3 -left-3 glass-card-nebula px-3 py-2 rounded-none"
-                animate={{ y: [0, 4, 0] }}
-                transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut', delay: 1 }}
-              >
-                <p className="text-nebula-pink font-mono text-[9px]">React.js</p>
-              </motion.div>
+                <p
+                  className="font-sans"
+                  style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555555', marginBottom: '2px' }}
+                >
+                  Fresh Grad
+                </p>
+                <p
+                  className="font-sans"
+                  style={{ fontSize: '11px', fontWeight: 500, color: '#ffffff' }}
+                >
+                  Frontend Dev
+                </p>
+              </div>
             </div>
           </motion.div>
 
-          {/* ── TEXT ── */}
+          {/* ── Text ── */}
           <motion.div
-            initial={{ opacity: 0, x: 60, scale: 0.96 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
-            <h3 className="text-3xl font-serif font-light text-white mb-5">
-              Crafting Digital Experiences,{' '}
-              <span className="text-space-light">One Component at a Time</span>
+            <h3
+              className="font-serif mb-6"
+              style={{ fontSize: 'clamp(1.4rem, 3vw, 1.85rem)', fontWeight: 400, color: '#ffffff', lineHeight: 1.3 }}
+            >
+              Crafting digital experiences,{' '}
+              <span style={{ color: '#a0a0a0', fontStyle: 'italic' }}>
+                one component at a time
+              </span>
             </h3>
-            <p className="text-space-pale/70 leading-relaxed mb-5 font-light">
+
+            <p
+              className="font-sans mb-5"
+              style={{ fontSize: '13px', color: '#787878', lineHeight: 1.85, fontWeight: 300 }}
+            >
               An Information Technology graduate from{' '}
-              <span className="text-space-light font-semibold">Universitas Negeri Yogyakarta</span>{' '}
+              <span style={{ color: '#a0a0a0', fontWeight: 400 }}>Universitas Negeri Yogyakarta</span>{' '}
               with hands-on experience building robust, scalable web applications across both the
               financial sector (PT. Bank Syariah Indonesia) and government sector (Kementerian
               Ketenagakerjaan).
             </p>
-            <p className="text-space-pale/70 leading-relaxed mb-8 font-light">
+
+            <p
+              className="font-sans mb-10"
+              style={{ fontSize: '13px', color: '#787878', lineHeight: 1.85, fontWeight: 300 }}
+            >
               Specializing in modern React.js ecosystems — I translate complex business logic into
               pixel-perfect, intuitive interfaces. From dynamic data dashboards to secure admin
               systems, I build with precision and a user-first mindset.
             </p>
 
-            {/* Contact info */}
-            <div className="space-y-3 mb-8">
+            {/* Contact info — text list */}
+            <div className="mb-10" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
               {[
-                { icon: FiMail, text: 'septiancahyo67@gmail.com', href: 'mailto:septiancahyo67@gmail.com' },
-                { icon: FiPhone, text: '+62 896-7130-6514', href: 'https://wa.me/6289671306514' },
-                { icon: FiMapPin, text: 'Yogyakarta, Indonesia', href: null },
-              ].map(({ icon: Icon, text, href }) => (
-                <div key={text} className="flex items-center gap-3 text-space-pale/60">
-                  <Icon size={14} className="text-space-blue flex-shrink-0" />
+                { label: 'Email',    value: 'septiancahyo67@gmail.com', href: 'mailto:septiancahyo67@gmail.com' },
+                { label: 'Phone',    value: '+62 896-7130-6514',         href: 'https://wa.me/6289671306514' },
+                { label: 'Location', value: 'Yogyakarta, Indonesia',     href: null },
+              ].map(({ label, value, href }) => (
+                <div
+                  key={label}
+                  className="flex items-baseline gap-6 mb-3"
+                >
+                  <span
+                    className="font-sans"
+                    style={{ fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#444444', minWidth: '56px' }}
+                  >
+                    {label}
+                  </span>
                   {href
-                    ? <a href={href} className="font-mono text-xs hover:text-space-light transition-colors">{text}</a>
-                    : <span className="font-mono text-xs">{text}</span>
+                    ? (
+                      <a
+                        href={href}
+                        className="font-sans hover:text-white transition-colors duration-200"
+                        style={{ fontSize: '12px', color: '#787878', fontWeight: 300 }}
+                      >
+                        {value}
+                      </a>
+                    )
+                    : (
+                      <span
+                        className="font-sans"
+                        style={{ fontSize: '12px', color: '#787878', fontWeight: 300 }}
+                      >
+                        {value}
+                      </span>
+                    )
                   }
                 </div>
               ))}
             </div>
 
+            {/* CTA */}
             <div className="flex flex-wrap gap-3">
-              <a href="#experience" className="btn-primary !px-6 !py-2.5 !text-xs uppercase tracking-wider">
-                My Journey →
-              </a>
+              <a href="#experience" className="btn-primary">My Journey</a>
               <a
                 href="https://www.linkedin.com/in/septian-cahyo"
                 target="_blank"
                 rel="noreferrer"
-                className="btn-outline !px-6 !py-2.5 !text-xs uppercase tracking-wider"
+                className="btn-outline"
               >
                 LinkedIn
               </a>
@@ -150,26 +182,39 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Stats row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 border-t border-b border-space-blue/10 py-10">
+        {/* ── Stats ── */}
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-4 mt-20"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+        >
           {stats.map((s, i) => (
-            <motion.div
+            <div
               key={s.label}
-              className="text-center md:text-left group md:border-r border-space-blue/15 last:border-0 px-4"
-              initial={{ opacity: 0, scale: 0.5, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.7, ease: [0.34, 1.56, 0.64, 1], delay: i * 0.12 }}
+              className="py-8 px-6"
+              style={{
+                borderRight: i < stats.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
+              }}
             >
-              <div className="text-[10px] font-mono text-space-blue/60 uppercase tracking-widest mb-2">
-                {s.label}
-              </div>
-              <div className="text-3xl font-serif font-light text-white flex items-center justify-center md:justify-start">
+              <div
+                className="font-serif mb-1"
+                style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 300, color: '#ffffff', letterSpacing: '-0.02em' }}
+              >
                 {s.value}
               </div>
-            </motion.div>
+              <div
+                className="font-sans"
+                style={{ fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#444444' }}
+              >
+                {s.label}
+              </div>
+            </div>
           ))}
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );

@@ -1,167 +1,256 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  SiJavascript, SiTypescript, SiPhp, SiHtml5, SiCss,
-  SiReact, SiTailwindcss, SiChartdotjs,
-  SiMysql, SiGit, SiFigma, SiCanva, SiRedux,
-} from 'react-icons/si';
-import { FiDatabase, FiCode, FiLayers, FiTool } from 'react-icons/fi';
 
 const skillCategories = [
   {
-    title: 'Programming Languages',
-    icon: FiCode,
-    color: '#9DCDDC',
-    glow: 'rgba(157,205,220,0.35)',
+    id: 'languages',
+    title: 'Languages',
     skills: [
-      { name: 'HTML5', icon: SiHtml5, color: '#E44D26' },
-      { name: 'CSS3', icon: SiCss, color: '#1572B6' },
-      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
-      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
-      { name: 'PHP', icon: SiPhp, color: '#777BB4' },
+      { name: 'JavaScript', level: 'Advanced' },
+      { name: 'TypeScript', level: 'Intermediate' },
+      { name: 'HTML5 / CSS3', level: 'Advanced' },
+      { name: 'PHP', level: 'Intermediate' },
     ],
   },
   {
+    id: 'frameworks',
     title: 'Frameworks & Libraries',
-    icon: FiLayers,
-    color: '#C774B2',
-    glow: 'rgba(199,116,178,0.35)',
     skills: [
-      { name: 'React.js', icon: SiReact, color: '#61DAFB' },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-      { name: 'Chart.js', icon: SiChartdotjs, color: '#FF6384' },
-      { name: 'Zustand', icon: null, color: '#9DCDDC' },
-      { name: 'TanStack Query', icon: null, color: '#FF4154' },
-      { name: 'CoreUI', icon: null, color: '#5692A9' },
-      { name: 'Redux', icon: SiRedux, color: '#764ABC' },
-      { name: 'Jotai', icon: null, color: '#3178C6' },
+      { name: 'React.js', level: 'Advanced' },
+      { name: 'Tailwind CSS', level: 'Advanced' },
+      { name: 'TanStack Query', level: 'Intermediate' },
+      { name: 'Zustand', level: 'Intermediate' },
+      { name: 'Redux / Jotai', level: 'Intermediate' },
+      { name: 'CoreUI', level: 'Intermediate' },
+      { name: 'Chart.js', level: 'Intermediate' },
     ],
   },
   {
-    title: 'Tools & Databases',
-    icon: FiTool,
-    color: '#5692A9',
-    glow: 'rgba(86,146,169,0.35)',
+    id: 'tools',
+    title: 'Tools & Infrastructure',
     skills: [
-      { name: 'Git', icon: SiGit, color: '#F05032' },
-      { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
-      { name: 'REST API', icon: FiDatabase, color: '#9DCDDC' },
-      { name: 'JWT Auth', icon: null, color: '#5692A9' },
+      { name: 'Git', level: 'Advanced' },
+      { name: 'REST API', level: 'Advanced' },
+      { name: 'JWT Auth', level: 'Intermediate' },
+      { name: 'MySQL', level: 'Intermediate' },
     ],
   },
   {
-    title: 'Design Tools',
-    icon: FiTool,
-    color: '#7B347E',
-    glow: 'rgba(123,52,126,0.35)',
+    id: 'design',
+    title: 'Design',
     skills: [
-      { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
-      { name: 'Photoshop', icon: null, color: '#31A8FF' },
-      { name: 'Canva', icon: SiCanva, color: '#00C4CC' },
-      { name: 'CorelDraw', icon: null, color: '#C774B2' },
+      { name: 'Figma', level: 'Intermediate' },
+      { name: 'Adobe Photoshop', level: 'Intermediate' },
+      { name: 'Canva', level: 'Advanced' },
+      { name: 'CorelDraw', level: 'Intermediate' },
     ],
   },
 ];
 
 const softSkills = [
-  'Problem Solving', 'Cross-functional Collaboration',
-  'Adaptability', 'Fast Learner', 'Attention to Detail', 'Communication',
+  'Problem Solving',
+  'Cross-functional Collaboration',
+  'Adaptability',
+  'Fast Learner',
+  'Attention to Detail',
+  'Communication',
 ];
 
+const LEVEL_WIDTH = { Advanced: '100%', Intermediate: '62%', Beginner: '35%' };
+const LEVEL_COLOR = { Advanced: 'rgba(255,255,255,0.55)', Intermediate: 'rgba(255,255,255,0.3)', Beginner: 'rgba(255,255,255,0.15)' };
+
+const fadeUp = (delay = 0) => ({
+  initial:     { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport:    { once: true, margin: '-80px' },
+  transition:  { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
+});
+
 export default function Skills() {
+  const [activeTab, setActiveTab] = useState('languages');
+  const activeCat = skillCategories.find(c => c.id === activeTab);
+
   return (
     <section
       id="skills"
-      className="relative py-28 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #09090b 0%, #121215 50%, #09090b 100%)' }}
+      className="py-28 px-6"
+      style={{ background: '#111111', borderTop: '1px solid rgba(255,255,255,0.05)' }}
     >
-      <div className="absolute top-0 right-1/4 w-80 h-80 rounded-full bg-nebula-dark/20 blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-72 h-72 rounded-full bg-space-medium/20 blur-[90px] pointer-events-none" />
+      <div className="max-w-5xl mx-auto">
 
-      <div className="container mx-auto relative z-10">
-
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, scale: 0.75, filter: 'blur(10px)' }}
-          whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <p className="section-tag mb-3">&gt;_ Technical Arsenal</p>
-          <h2 className="section-heading">
-            My{' '}
-            <span className="gradient-text">Skills</span>
-            {' '}& Expertise
+        {/* Section header */}
+        <motion.div className="mb-20" {...fadeUp(0)}>
+          <span className="section-label">Technical Arsenal</span>
+          <h2 className="section-title">
+            Skills &amp;{' '}
+            <span style={{ color: '#a0a0a0', fontStyle: 'italic', fontWeight: 300 }}>Expertise</span>
           </h2>
+          <div className="section-divider" />
         </motion.div>
 
-        {/* Skill categories grid */}
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
-          {skillCategories.map((cat, ci) => (
-            <motion.div
-              key={cat.title}
-              className="border-b border-space-blue/15 pb-8"
-              initial={{ opacity: 0, scale: 0.88, y: 30, filter: 'blur(6px)' }}
-              whileInView={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: ci * 0.18 }}
-            >
-              {/* Category header */}
-              <div className="flex items-center gap-3 mb-6">
-                <cat.icon size={15} style={{ color: cat.color }} />
-                <h3 className="font-serif font-light text-white text-lg tracking-wide">{cat.title}</h3>
-              </div>
+        {/* Two-column layout */}
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
 
-              {/* Skills text list */}
-              <div className="flex flex-wrap gap-x-6 gap-y-4">
-                {cat.skills.map((skill) => (
-                  <div
-                    key={skill.name}
-                    className="flex items-center gap-2 group cursor-default"
+          {/* Left: Tab navigation + skill list */}
+          <motion.div {...fadeUp(0.1)}>
+
+            {/* Tab buttons */}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '2px',
+                marginBottom: '2.5rem',
+                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                paddingBottom: '0',
+              }}
+            >
+              {skillCategories.map(cat => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveTab(cat.id)}
+                  className="font-sans"
+                  style={{
+                    fontSize: '9px',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    padding: '10px 14px',
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: activeTab === cat.id ? '#ffffff' : '#444444',
+                    borderBottom: activeTab === cat.id ? '1px solid rgba(255,255,255,0.3)' : '1px solid transparent',
+                    marginBottom: '-1px',
+                    transition: 'color 0.2s ease',
+                  }}
+                >
+                  {cat.title}
+                </button>
+              ))}
+            </div>
+
+            {/* Skill list with level bars */}
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              style={{ display: 'flex', flexDirection: 'column', gap: '0' }}
+            >
+              {activeCat.skills.map((skill, si) => (
+                <div
+                  key={skill.name}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '14px 0',
+                    borderBottom: '1px solid rgba(255,255,255,0.04)',
+                  }}
+                >
+                  <span
+                    className="font-sans"
+                    style={{ fontSize: '13px', color: '#a0a0a0', fontWeight: 300 }}
                   >
+                    {skill.name}
+                  </span>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    {/* Level bar */}
+                    <div
+                      style={{
+                        width: '64px',
+                        height: '1px',
+                        background: 'rgba(255,255,255,0.07)',
+                        position: 'relative',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <motion.div
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          top: 0,
+                          height: '1px',
+                          background: LEVEL_COLOR[skill.level],
+                        }}
+                        initial={{ width: 0 }}
+                        whileInView={{ width: LEVEL_WIDTH[skill.level] }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: si * 0.06 }}
+                      />
+                    </div>
                     <span
-                      className="w-1 h-1 rounded-full transition-transform duration-300 group-hover:scale-150"
-                      style={{ background: skill.color || '#c5a880' }}
-                    />
-                    <span className="font-sans text-sm text-space-pale/80 hover:text-white transition-colors duration-200">
-                      {skill.name}
+                      className="font-sans"
+                      style={{ fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#333333', minWidth: '70px', textAlign: 'right' }}
+                    >
+                      {skill.level}
                     </span>
                   </div>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Right: All categories overview + soft skills */}
+          <motion.div {...fadeUp(0.2)}>
+
+            {/* All skills overview */}
+            <div style={{ marginBottom: '3rem' }}>
+              {skillCategories.map((cat, ci) => (
+                <div
+                  key={cat.id}
+                  style={{
+                    marginBottom: '1.75rem',
+                    paddingBottom: '1.75rem',
+                    borderBottom: ci < skillCategories.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+                  }}
+                >
+                  <p
+                    className="font-sans"
+                    style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#333333', marginBottom: '10px' }}
+                  >
+                    {cat.title}
+                  </p>
+                  <p
+                    className="font-sans"
+                    style={{ fontSize: '13px', color: '#555555', fontWeight: 300, lineHeight: 2 }}
+                  >
+                    {cat.skills.map(s => s.name).join('  ·  ')}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Soft skills */}
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2rem' }}>
+              <p
+                className="font-sans"
+                style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#333333', marginBottom: '1rem' }}
+              >
+                Core Attributes
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                {softSkills.map(s => (
+                  <span
+                    key={s}
+                    className="font-sans"
+                    style={{
+                      fontSize: '10px',
+                      letterSpacing: '0.1em',
+                      color: '#555555',
+                      border: '1px solid rgba(255,255,255,0.07)',
+                      padding: '6px 14px',
+                    }}
+                  >
+                    {s}
+                  </span>
                 ))}
               </div>
-            </motion.div>
-          ))}
+            </div>
+          </motion.div>
         </div>
-
-        {/* Soft skills */}
-        <motion.div
-          className="border-t border-space-blue/10 pt-12 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          <h3 className="font-serif font-light text-white text-xl mb-6">
-            Core <span className="text-space-light">Attributes</span>
-          </h3>
-          <div className="flex flex-wrap justify-center gap-3">
-            {softSkills.map((s, i) => (
-              <motion.span
-                key={s}
-                className="skill-tag"
-                initial={{ opacity: 0, scale: 0.6, y: 15 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-              >
-                ✦ {s}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );
 }
-

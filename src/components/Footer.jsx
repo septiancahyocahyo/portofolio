@@ -1,56 +1,48 @@
-import { FiLinkedin, FiMail, FiHeart } from 'react-icons/fi';
-
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer
-      className="relative py-12 px-6 overflow-hidden bg-space-deepest"
-      style={{ borderTop: '1px solid rgba(197, 168, 128, 0.1)' }}
+      className="py-8 px-6"
+      style={{ borderTop: '1px solid rgba(255,255,255,0.05)', background: '#0a0a0a' }}
     >
-      <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div
+        className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4"
+      >
+        {/* Name */}
+        <span
+          className="font-serif"
+          style={{ fontSize: '14px', fontWeight: 400, color: '#333333', letterSpacing: '0.01em' }}
+        >
+          Septian Cahyo Saputro
+        </span>
 
-          {/* Logo / name */}
-          <div className="flex items-center gap-3">
-            <div
-              className="w-8 h-8 flex items-center justify-center font-serif text-sm text-space-blue border border-space-blue/20"
-            >
-              SC
-            </div>
-            <div>
-              <p className="text-white font-serif text-sm">Septian Cahyo Saputro</p>
-              <p className="text-space-blue font-mono text-[9px] uppercase tracking-wider">Frontend Developer</p>
-            </div>
-          </div>
+        {/* Copyright */}
+        <span
+          className="font-sans"
+          style={{ fontSize: '10px', letterSpacing: '0.12em', color: '#333333' }}
+        >
+          © {year}
+        </span>
 
-          {/* Center */}
-          <p className="text-space-pale/30 font-sans text-xs flex items-center gap-1.5 font-light">
-            Crafted with passion using React &amp; Tailwind CSS
-          </p>
-
-          {/* Links */}
-          <div className="flex items-center gap-5">
-            <a
-              href="https://www.linkedin.com/in/septian-cahyo"
-              target="_blank"
-              rel="noreferrer"
-              className="text-space-pale/40 hover:text-space-light transition-colors duration-200"
-              aria-label="LinkedIn"
-            >
-              <FiLinkedin size={16} />
-            </a>
-            <a
-              href="mailto:septiancahyo67@gmail.com"
-              className="text-space-pale/40 hover:text-space-light transition-colors duration-200"
-              aria-label="Email"
-            >
-              <FiMail size={16} />
-            </a>
-            <span className="text-space-pale/25 font-mono text-xs">
-              © {year}
-            </span>
-          </div>
+        {/* Links */}
+        <div className="flex items-center gap-6">
+          <a
+            href="https://www.linkedin.com/in/septian-cahyo"
+            target="_blank"
+            rel="noreferrer"
+            className="font-sans hover:text-white transition-colors duration-200"
+            style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#444444' }}
+          >
+            LinkedIn
+          </a>
+          <a
+            href="mailto:septiancahyo67@gmail.com"
+            className="font-sans hover:text-white transition-colors duration-200"
+            style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#444444' }}
+          >
+            Email
+          </a>
         </div>
       </div>
     </footer>
