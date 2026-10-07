@@ -2,15 +2,15 @@ import { motion } from 'framer-motion';
 
 const stats = [
   { value: '3.78', label: 'GPA / 4.00' },
-  { value: '3+',   label: 'Apps Shipped' },
-  { value: '2',    label: 'Internships' },
-  { value: '563',  label: 'ProTEFL Score' },
+  { value: '3+', label: 'Apps Shipped' },
+  { value: '2', label: 'Internships' },
+  { value: '563', label: 'ProTEFL Score' },
 ];
 
 const fadeUp = (delay = 0) => ({
-  initial:    { opacity: 0, y: 24 },
-  whileInView:{ opacity: 1, y: 0 },
-  viewport:   { once: true, margin: '-80px' },
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
   transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay },
 });
 
@@ -76,7 +76,7 @@ export default function About() {
               >
                 <p
                   className="font-sans"
-                  style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#555555', marginBottom: '2px' }}
+                  style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#bebebeff', marginBottom: '2px' }}
                 >
                   Fresh Grad
                 </p>
@@ -130,9 +130,9 @@ export default function About() {
             {/* Contact info — text list */}
             <div className="mb-10" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
               {[
-                { label: 'Email',    value: 'septiancahyo67@gmail.com', href: 'mailto:septiancahyo67@gmail.com' },
-                { label: 'Phone',    value: '+62 896-7130-6514',         href: 'https://wa.me/6289671306514' },
-                { label: 'Location', value: 'Yogyakarta, Indonesia',     href: null },
+                { label: 'Email', value: 'septiancahyo67@gmail.com', href: 'mailto:septiancahyo67@gmail.com' },
+                { label: 'Phone', value: '+62 896-7130-6514', href: 'https://wa.me/6289671306514' },
+                { label: 'Location', value: 'Yogyakarta, Indonesia', href: null },
               ].map(({ label, value, href }) => (
                 <div
                   key={label}
@@ -140,7 +140,7 @@ export default function About() {
                 >
                   <span
                     className="font-sans"
-                    style={{ fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#444444', minWidth: '56px' }}
+                    style={{ fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#b3b3b3ff', minWidth: '56px' }}
                   >
                     {label}
                   </span>
@@ -207,7 +207,7 @@ export default function About() {
               </div>
               <div
                 className="font-sans"
-                style={{ fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#444444' }}
+                style={{ fontSize: '9px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#b3b3b3ff' }}
               >
                 {s.label}
               </div>

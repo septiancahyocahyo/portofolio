@@ -3,22 +3,22 @@ import { motion } from 'framer-motion';
 import { FiCheck, FiAlertCircle, FiSend } from 'react-icons/fi';
 import emailjs from '@emailjs/browser';
 
-const EMAILJS_SERVICE_ID  = 'porto_septian';
+const EMAILJS_SERVICE_ID = 'porto_septian';
 const EMAILJS_TEMPLATE_ID = 'porto_septian';
-const EMAILJS_PUBLIC_KEY  = 'WFsAhumYnHFGyUhyB';
+const EMAILJS_PUBLIC_KEY = 'WFsAhumYnHFGyUhyB';
 
 const contactInfo = [
-  { label: 'Email',            value: 'septiancahyo67@gmail.com',     href: 'mailto:septiancahyo67@gmail.com' },
-  { label: 'Phone / WhatsApp', value: '+62 896-7130-6514',             href: 'https://wa.me/6289671306514' },
-  { label: 'LinkedIn',         value: 'linkedin.com/in/septian-cahyo', href: 'https://www.linkedin.com/in/septian-cahyo' },
-  { label: 'Location',         value: 'Yogyakarta, Indonesia',         href: null },
+  { label: 'Email', value: 'septiancahyo67@gmail.com', href: 'mailto:septiancahyo67@gmail.com' },
+  { label: 'Phone / WhatsApp', value: '+62 896-7130-6514', href: 'https://wa.me/6289671306514' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/septian-cahyo', href: 'https://www.linkedin.com/in/septian-cahyo' },
+  { label: 'Location', value: 'Yogyakarta, Indonesia', href: null },
 ];
 
 const fadeUp = (delay = 0) => ({
-  initial:     { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true, margin: '-80px' },
-  transition:  { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
 });
 
 const fieldBorderStyle = {
@@ -32,7 +32,7 @@ const labelStyle = {
   fontSize: '9px',
   letterSpacing: '0.2em',
   textTransform: 'uppercase',
-  color: '#333333',
+  color: '#7c7c7cff',
   fontFamily: 'Inter, sans-serif',
   marginBottom: '6px',
 };
@@ -53,9 +53,9 @@ const inputStyle = {
 
 export default function Contact() {
   const formRef = useRef(null);
-  const [form, setForm]     = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('idle');
-  const [focus, setFocus]   = useState(null);
+  const [focus, setFocus] = useState(null);
 
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -91,7 +91,7 @@ export default function Contact() {
           <div className="section-divider" />
           <p
             className="font-sans mt-4"
-            style={{ fontSize: '13px', color: '#555555', fontWeight: 300, maxWidth: '440px' }}
+            style={{ fontSize: '13px', color: '#bebebeff', fontWeight: 300, maxWidth: '440px' }}
           >
             Open to new opportunities, collaborations, or just a conversation about technology.
           </p>
@@ -137,7 +137,7 @@ export default function Contact() {
                       fontSize: '9px',
                       letterSpacing: '0.18em',
                       textTransform: 'uppercase',
-                      color: '#333333',
+                      color: '#7c7c7cff',
                       minWidth: '80px',
                       flexShrink: 0,
                     }}
@@ -270,9 +270,9 @@ export default function Contact() {
                     Sending...
                   </>
                 )}
-                {status === 'sent'  && <><FiCheck size={13} /> Message Sent!</>}
+                {status === 'sent' && <><FiCheck size={13} /> Message Sent!</>}
                 {status === 'error' && <><FiAlertCircle size={13} /> Failed — Try Again</>}
-                {status === 'idle'  && <><FiSend size={13} /> Send Message</>}
+                {status === 'idle' && <><FiSend size={13} /> Send Message</>}
               </button>
             </form>
           </motion.div>

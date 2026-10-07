@@ -12,7 +12,7 @@ export default function Footer() {
         {/* Name */}
         <span
           className="font-serif"
-          style={{ fontSize: '14px', fontWeight: 400, color: '#333333', letterSpacing: '0.01em' }}
+          style={{ fontSize: '14px', fontWeight: 400, color: '#7c7c7cff', letterSpacing: '0.01em' }}
         >
           Septian Cahyo Saputro
         </span>
@@ -20,7 +20,7 @@ export default function Footer() {
         {/* Copyright */}
         <span
           className="font-sans"
-          style={{ fontSize: '10px', letterSpacing: '0.12em', color: '#333333' }}
+          style={{ fontSize: '10px', letterSpacing: '0.12em', color: '#7c7c7cff' }}
         >
           © {year}
         </span>
@@ -32,14 +32,14 @@ export default function Footer() {
             target="_blank"
             rel="noreferrer"
             className="font-sans hover:text-white transition-colors duration-200"
-            style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#444444' }}
+            style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b3b3b3ff' }}
           >
             LinkedIn
           </a>
           <a
             href="mailto:septiancahyo67@gmail.com"
             className="font-sans hover:text-white transition-colors duration-200"
-            style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#444444' }}
+            style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b3b3b3ff' }}
           >
             Email
           </a>

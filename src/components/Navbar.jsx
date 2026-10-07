@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 
 const NAV_LINKS = [
-  { href: '#home',       label: 'Home' },
-  { href: '#about',      label: 'About' },
+  { href: '#home', label: 'Home' },
+  { href: '#about', label: 'About' },
   { href: '#experience', label: 'Experience' },
-  { href: '#skills',     label: 'Skills' },
-  { href: '#projects',   label: 'Projects' },
-  { href: '#education',  label: 'Education' },
-  { href: '#contact',    label: 'Contact' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#education', label: 'Education' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled]   = useState(false);
-  const [active, setActive]       = useState('home');
-  const [menuOpen, setMenuOpen]   = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('home');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -37,12 +37,12 @@ export default function Navbar() {
       style={
         scrolled
           ? {
-              background: 'rgba(10,10,10,0.92)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              borderBottom: '1px solid rgba(255,255,255,0.05)',
-              padding: '14px 0',
-            }
+            background: 'rgba(10,10,10,0.92)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            borderBottom: '1px solid rgba(255,255,255,0.05)',
+            padding: '14px 0',
+          }
           : { padding: '22px 0' }
       }
     >
@@ -60,14 +60,14 @@ export default function Navbar() {
         {/* Desktop links — right */}
         <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map(link => {
-            const id       = link.href.slice(1);
+            const id = link.href.slice(1);
             const isActive = active === id;
             return (
               <a
                 key={id}
                 href={link.href}
                 className="relative font-sans text-[10px] uppercase tracking-[0.18em] transition-colors duration-200"
-                style={{ color: isActive ? '#ffffff' : '#555555' }}
+                style={{ color: isActive ? '#ffffff' : '#bebebeff' }}
               >
                 {link.label}
                 {isActive && (

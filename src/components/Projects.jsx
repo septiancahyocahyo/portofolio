@@ -70,10 +70,10 @@ const projects = [
 ];
 
 const fadeUp = (delay = 0) => ({
-  initial:     { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true, margin: '-60px' },
-  transition:  { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
 });
 
 export default function Projects() {
@@ -97,7 +97,7 @@ export default function Projects() {
           <div className="section-divider" />
           <p
             className="font-sans mt-4"
-            style={{ fontSize: '13px', color: '#555555', fontWeight: 300, maxWidth: '440px' }}
+            style={{ fontSize: '13px', color: '#bebebeff', fontWeight: 300, maxWidth: '440px' }}
           >
             Production-deployed applications built during internships across government and financial sectors.
           </p>
@@ -133,7 +133,7 @@ export default function Projects() {
                     {/* Index */}
                     <span
                       className="font-sans"
-                      style={{ fontSize: '10px', letterSpacing: '0.15em', color: '#333333', flexShrink: 0 }}
+                      style={{ fontSize: '10px', letterSpacing: '0.15em', color: '#7c7c7cff', flexShrink: 0 }}
                     >
                       {project.index}
                     </span>
@@ -155,7 +155,7 @@ export default function Projects() {
                       </h3>
                       <p
                         className="font-sans"
-                        style={{ fontSize: '11px', color: '#444444', fontWeight: 300 }}
+                        style={{ fontSize: '11px', color: '#b3b3b3ff', fontWeight: 300 }}
                       >
                         {project.subtitle}
                       </p>
@@ -166,7 +166,7 @@ export default function Projects() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexShrink: 0 }}>
                     <span
                       className="font-sans hidden md:block"
-                      style={{ fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#333333' }}
+                      style={{ fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#7c7c7cff' }}
                     >
                       {project.sector}
                     </span>
@@ -237,7 +237,7 @@ export default function Projects() {
                                   fontSize: '9px',
                                   letterSpacing: '0.12em',
                                   textTransform: 'uppercase',
-                                  color: '#444444',
+                                  color: '#b3b3b3ff',
                                   border: '1px solid rgba(255,255,255,0.07)',
                                   padding: '4px 10px',
                                 }}
@@ -253,7 +253,7 @@ export default function Projects() {
                               target="_blank"
                               rel="noreferrer"
                               className="font-sans inline-flex items-center gap-2 hover:text-white transition-colors duration-200"
-                              style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#555555' }}
+                              style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#ffffffff' }}
                             >
                               <FiExternalLink size={11} />
                               {project.href.replace('https://', '')}
@@ -265,7 +265,7 @@ export default function Projects() {
                         <div>
                           <p
                             className="font-sans"
-                            style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#333333', marginBottom: '1rem' }}
+                            style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#7c7c7cff', marginBottom: '1rem' }}
                           >
                             Key Features
                           </p>

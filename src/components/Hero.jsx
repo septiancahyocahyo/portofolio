@@ -9,14 +9,14 @@ const ROLES = [
 ];
 
 const fadeUp = (delay = 0) => ({
-  initial:    { opacity: 0, y: 20 },
-  animate:    { opacity: 1, y: 0 },
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
   transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay },
 });
 
 export default function Hero() {
-  const [roleIdx,  setRoleIdx]  = useState(0);
-  const [display,  setDisplay]  = useState('');
+  const [roleIdx, setRoleIdx] = useState(0);
+  const [display, setDisplay] = useState('');
   const [deleting, setDeleting] = useState(false);
 
   /* Typing animation */
@@ -120,7 +120,7 @@ export default function Hero() {
           {...fadeUp(1.25)}
         >
           <a href="#projects" className="btn-primary">View Work</a>
-          <a href="#contact"  className="btn-outline">Contact</a>
+          <a href="#contact" className="btn-outline">Contact</a>
         </motion.div>
 
         {/* Social links — text only */}
@@ -129,9 +129,9 @@ export default function Hero() {
           {...fadeUp(1.4)}
         >
           {[
-            { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/septian-cahyo' },
-            { label: 'Email',     href: 'mailto:septiancahyo67@gmail.com' },
-            { label: 'WhatsApp',  href: 'https://wa.me/6289671306514' },
+            { label: 'LinkedIn', href: 'https://www.linkedin.com/in/septian-cahyo' },
+            { label: 'Email', href: 'mailto:septiancahyo67@gmail.com' },
+            { label: 'WhatsApp', href: 'https://wa.me/6289671306514' },
           ].map(({ label, href }) => (
             <a
               key={label}
@@ -139,7 +139,7 @@ export default function Hero() {
               target={href.startsWith('http') ? '_blank' : undefined}
               rel={href.startsWith('http') ? 'noreferrer' : undefined}
               className="font-sans transition-colors duration-200 hover:text-white"
-              style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#555555' }}
+              style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#bebebeff' }}
             >
               {label}
             </a>
@@ -156,7 +156,7 @@ export default function Hero() {
       >
         <span
           className="font-sans"
-          style={{ fontSize: '8px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#333333' }}
+          style={{ fontSize: '8px', letterSpacing: '0.3em', textTransform: 'uppercase', color: '#7c7c7cff' }}
         >
           Scroll
         </span>

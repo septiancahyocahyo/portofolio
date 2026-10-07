@@ -25,10 +25,10 @@ const org = {
 };
 
 const fadeUp = (delay = 0) => ({
-  initial:     { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true, margin: '-80px' },
-  transition:  { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
 });
 
 export default function Education() {
@@ -67,7 +67,7 @@ export default function Education() {
             </h3>
             <p
               className="font-sans mb-6"
-              style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#444444' }}
+              style={{ fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b3b3b3ff' }}
             >
               {education.location}
             </p>
@@ -89,13 +89,13 @@ export default function Education() {
               </p>
               <p
                 className="font-sans"
-                style={{ fontSize: '12px', color: '#555555', fontWeight: 300 }}
+                style={{ fontSize: '12px', color: '#bebebeff', fontWeight: 300 }}
               >
                 {education.major}
               </p>
               <p
                 className="font-sans mt-3"
-                style={{ fontSize: '10px', letterSpacing: '0.1em', color: '#333333' }}
+                style={{ fontSize: '10px', letterSpacing: '0.1em', color: '#7c7c7cff' }}
               >
                 {education.period}
               </p>
@@ -119,13 +119,13 @@ export default function Education() {
                   <div>
                     <p
                       className="font-sans"
-                      style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#333333', marginBottom: '3px' }}
+                      style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#7c7c7cff', marginBottom: '3px' }}
                     >
                       {ach.label}
                     </p>
                     <p
                       className="font-sans"
-                      style={{ fontSize: '11px', color: '#444444', fontWeight: 300 }}
+                      style={{ fontSize: '11px', color: '#b3b3b3ff', fontWeight: 300 }}
                     >
                       {ach.desc}
                     </p>
@@ -139,7 +139,7 @@ export default function Education() {
                     </span>
                     <span
                       className="font-sans"
-                      style={{ fontSize: '11px', color: '#444444', marginLeft: '4px' }}
+                      style={{ fontSize: '11px', color: '#b3b3b3ff', marginLeft: '4px' }}
                     >
                       {ach.suffix}
                     </span>
@@ -164,7 +164,7 @@ export default function Education() {
             </h3>
             <p
               className="font-sans mb-6"
-              style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#444444' }}
+              style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#b3b3b3ff' }}
             >
               {org.sub}
             </p>
@@ -190,7 +190,7 @@ export default function Education() {
                 </p>
                 <p
                   className="font-sans"
-                  style={{ fontSize: '10px', color: '#333333', letterSpacing: '0.08em' }}
+                  style={{ fontSize: '10px', color: '#7c7c7cff', letterSpacing: '0.08em' }}
                 >
                   {org.period}
                 </p>

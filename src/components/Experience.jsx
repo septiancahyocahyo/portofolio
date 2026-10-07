@@ -33,10 +33,10 @@ const experiences = [
 ];
 
 const fadeUp = (delay = 0) => ({
-  initial:     { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true, margin: '-80px' },
-  transition:  { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
 });
 
 export default function Experience() {
@@ -58,7 +58,7 @@ export default function Experience() {
           <div className="section-divider" />
           <p
             className="font-sans mt-4"
-            style={{ fontSize: '13px', color: '#555555', fontWeight: 300, maxWidth: '440px' }}
+            style={{ fontSize: '13px', color: '#bebebeff', fontWeight: 300, maxWidth: '440px' }}
           >
             Hands-on experience building production-grade systems across two industries.
           </p>
@@ -113,21 +113,21 @@ export default function Experience() {
                 >
                   <span
                     className="font-sans"
-                    style={{ fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#555555' }}
+                    style={{ fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#bebebeff' }}
                   >
                     {exp.period}
                   </span>
                   <span style={{ width: '1px', height: '10px', background: 'rgba(255,255,255,0.1)' }} />
                   <span
                     className="font-sans"
-                    style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#333333' }}
+                    style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#7c7c7cff' }}
                   >
                     {exp.location}
                   </span>
                   <span style={{ width: '1px', height: '10px', background: 'rgba(255,255,255,0.1)' }} />
                   <span
                     className="font-sans"
-                    style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#333333' }}
+                    style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#7c7c7cff' }}
                   >
                     {exp.type}
                   </span>
@@ -142,7 +142,7 @@ export default function Experience() {
                 </h3>
                 <p
                   className="font-sans"
-                  style={{ fontSize: '11px', color: '#444444', fontWeight: 300, letterSpacing: '0.04em', marginBottom: '4px' }}
+                  style={{ fontSize: '11px', color: '#b3b3b3ff', fontWeight: 300, letterSpacing: '0.04em', marginBottom: '4px' }}
                 >
                   {exp.companyFull}
                 </p>
@@ -189,7 +189,7 @@ export default function Experience() {
                         fontSize: '9px',
                         letterSpacing: '0.12em',
                         textTransform: 'uppercase',
-                        color: '#444444',
+                        color: '#b3b3b3ff',
                         border: '1px solid rgba(255,255,255,0.07)',
                         padding: '4px 10px',
                       }}

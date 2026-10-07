@@ -60,10 +60,10 @@ const LEVEL_WIDTH = { Advanced: '100%', Intermediate: '62%', Beginner: '35%' };
 const LEVEL_COLOR = { Advanced: 'rgba(255,255,255,0.55)', Intermediate: 'rgba(255,255,255,0.3)', Beginner: 'rgba(255,255,255,0.15)' };
 
 const fadeUp = (delay = 0) => ({
-  initial:     { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
-  viewport:    { once: true, margin: '-80px' },
-  transition:  { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay },
 });
 
 export default function Skills() {
@@ -101,7 +101,7 @@ export default function Skills() {
                 flexWrap: 'wrap',
                 gap: '2px',
                 marginBottom: '2.5rem',
-                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                borderBottom: '1px solid rgba(255, 0, 0, 1)',
                 paddingBottom: '0',
               }}
             >
@@ -118,7 +118,7 @@ export default function Skills() {
                     background: 'transparent',
                     border: 'none',
                     cursor: 'pointer',
-                    color: activeTab === cat.id ? '#ffffff' : '#444444',
+                    color: activeTab === cat.id ? '#ffffff' : '#b3b3b3ff',
                     borderBottom: activeTab === cat.id ? '1px solid rgba(255,255,255,0.3)' : '1px solid transparent',
                     marginBottom: '-1px',
                     transition: 'color 0.2s ease',
@@ -154,8 +154,13 @@ export default function Skills() {
                   >
                     {skill.name}
                   </span>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  
+                  <div style={{
+                    width: '150px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                  }}>
+                  <div style={{ width: '100%', display: 'grid', gridTemplateColumns: '64px 1fr', alignItems: 'center', justifyContent: 'space-between', columnGap: '12px' }}>
                     {/* Level bar */}
                     <div
                       style={{
@@ -182,10 +187,11 @@ export default function Skills() {
                     </div>
                     <span
                       className="font-sans"
-                      style={{ fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#333333', minWidth: '70px', textAlign: 'right' }}
+                      style={{ fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#7c7c7cff', minWidth: '70px', textAlign: 'left' }}
                     >
                       {skill.level}
                     </span>
+                  </div>
                   </div>
                 </div>
               ))}
@@ -208,13 +214,13 @@ export default function Skills() {
                 >
                   <p
                     className="font-sans"
-                    style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#333333', marginBottom: '10px' }}
+                    style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#7c7c7cff', marginBottom: '10px' }}
                   >
                     {cat.title}
                   </p>
                   <p
                     className="font-sans"
-                    style={{ fontSize: '13px', color: '#555555', fontWeight: 300, lineHeight: 2 }}
+                    style={{ fontSize: '13px', color: '#bebebeff', fontWeight: 300, lineHeight: 2 }}
                   >
                     {cat.skills.map(s => s.name).join('  ·  ')}
                   </p>
@@ -226,7 +232,7 @@ export default function Skills() {
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2rem' }}>
               <p
                 className="font-sans"
-                style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#333333', marginBottom: '1rem' }}
+                style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#7c7c7cff', marginBottom: '1rem' }}
               >
                 Core Attributes
               </p>
@@ -238,7 +244,7 @@ export default function Skills() {
                     style={{
                       fontSize: '10px',
                       letterSpacing: '0.1em',
-                      color: '#555555',
+                      color: '#bebebeff',
                       border: '1px solid rgba(255,255,255,0.07)',
                       padding: '6px 14px',
                     }}
