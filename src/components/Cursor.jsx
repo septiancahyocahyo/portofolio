@@ -1,19 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
-const TRAIL = 14;
-
 export default function Cursor() {
   const dotRef = useRef(null);
-  const ringRef = useRef(null);
-  const trailRefs = useRef([]);
   const pos = useRef({ x: -200, y: -200 });
-  const trailPos = useRef(Array(TRAIL).fill({ x: -200, y: -200 }));
-  const [bursts, setBursts] = useState([]);
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
-    let raf;
-
     const onMove = (e) => {
       pos.current = { x: e.clientX, y: e.clientY };
       if (dotRef.current) {
@@ -22,133 +14,71 @@ export default function Cursor() {
       }
     };
 
-    const animate = () => {
-      trailPos.current = [{ ...pos.current }, ...trailPos.current.slice(0, TRAIL - 1)];
-      trailRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const p = trailPos.current[i];
-        el.style.left = p.x + 'px';
-        el.style.top = p.y + 'px';
-        el.style.opacity = String(((TRAIL - i) / TRAIL) * 0.75);
-        const s = Math.max(1.5, 9 - i * 0.55);
-        el.style.width = s + 'px';
-        el.style.height = s + 'px';
-      });
-      // Ring lags behind with lerp
-      if (ringRef.current) {
-        const r = ringRef.current;
-        const rx = parseFloat(r.dataset.x || pos.current.x);
-        const ry = parseFloat(r.dataset.y || pos.current.y);
-        const nx = rx + (pos.current.x - rx) * 0.12;
-        const ny = ry + (pos.current.y - ry) * 0.12;
-        r.dataset.x = nx;
-        r.dataset.y = ny;
-        r.style.left = nx + 'px';
-        r.style.top = ny + 'px';
-      }
-      raf = requestAnimationFrame(animate);
-    };
-
-    const onClick = (e) => {
-      const id = Date.now() + Math.random();
-      setBursts(prev => [...prev, { x: e.clientX, y: e.clientY, id }]);
-      setTimeout(() => setBursts(prev => prev.filter(b => b.id !== id)), 900);
-    };
-
     const onEnterLink = () => setHovered(true);
     const onLeaveLink = () => setHovered(false);
 
-    const links = document.querySelectorAll('a, button, [role="button"]');
-    links.forEach(el => { el.addEventListener('mouseenter', onEnterLink); el.addEventListener('mouseleave', onLeaveLink); });
+    const updateLinks = () => {
+      const links = document.querySelectorAll('a, button, [role="button"], input, textarea, select');
+      links.forEach(el => {
+        el.addEventListener('mouseenter', onEnterLink);
+        el.addEventListener('mouseleave', onLeaveLink);
+      });
+    };
+
+    updateLinks();
+    
+    const observer = new MutationObserver(updateLinks);
+    observer.observe(document.body, { childList: true, subtree: true });
 
     window.addEventListener('mousemove', onMove, { passive: true });
-    window.addEventListener('click', onClick);
+    
     document.body.style.cursor = 'none';
-    animate();
 
     return () => {
       window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('click', onClick);
-      cancelAnimationFrame(raf);
+      observer.disconnect();
       document.body.style.cursor = '';
-      links.forEach(el => { el.removeEventListener('mouseenter', onEnterLink); el.removeEventListener('mouseleave', onLeaveLink); });
+      
+      const links = document.querySelectorAll('a, button, [role="button"], input, textarea, select');
+      links.forEach(el => {
+        el.removeEventListener('mouseenter', onEnterLink);
+        el.removeEventListener('mouseleave', onLeaveLink);
+      });
     };
   }, []);
 
   return (
-    <>
-      {/* Core dot */}
-      <div
-        ref={dotRef}
-        className="fixed pointer-events-none z-[9999] rounded-full"
+    <div
+      ref={dotRef}
+      className="fixed pointer-events-none z-[9999] hidden md:block"
+      style={{
+        width: 24,
+        height: 24,
+        transform: 'translate(-2px, -2px)',
+      }}
+    >
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
         style={{
-          width: hovered ? 12 : 7,
-          height: hovered ? 12 : 7,
-          transform: 'translate(-50%,-50%)',
-          background: '#fff',
-          boxShadow: '0 0 8px #9DCDDC, 0 0 20px #9DCDDC88',
-          transition: 'width 0.2s, height 0.2s',
+          filter: hovered 
+            ? 'drop-shadow(0 0 8px rgba(226, 209, 188, 0.95)) drop-shadow(0 0 2px rgba(197, 168, 128, 0.8))' 
+            : 'drop-shadow(0 0 5px rgba(197, 168, 128, 0.7))',
+          transition: 'filter 0.3s ease',
         }}
-      />
-
-      {/* Lagging ring */}
-      <div
-        ref={ringRef}
-        className="fixed pointer-events-none z-[9998] rounded-full"
-        style={{
-          width: hovered ? 48 : 32,
-          height: hovered ? 48 : 32,
-          transform: 'translate(-50%,-50%)',
-          border: hovered ? '1.5px solid #C774B2cc' : '1.5px solid #9DCDDC66',
-          boxShadow: hovered ? '0 0 20px #C774B255, inset 0 0 10px #C774B222' : '0 0 14px #9DCDDC33',
-          transition: 'width 0.3s, height 0.3s, border 0.3s, box-shadow 0.3s',
-        }}
-      />
-
-      {/* Colourful trail */}
-      {Array(TRAIL).fill(0).map((_, i) => (
-        <div
-          key={i}
-          ref={el => { trailRefs.current[i] = el; }}
-          className="fixed pointer-events-none rounded-full"
-          style={{
-            zIndex: 9997 - i,
-            width: 9, height: 9,
-            transform: 'translate(-50%,-50%)',
-            background: i % 3 === 0 ? '#9DCDDC' : i % 3 === 1 ? '#C774B2' : '#5692A9',
-            boxShadow: i < 5 ? `0 0 6px currentColor` : 'none',
-          }}
+      >
+        <path
+          d="M2 2 L18 8 L12 12 L8 18 Z"
+          fill={hovered ? '#e2d1bc' : '#c5a880'}
+          stroke={hovered ? '#fff' : 'rgba(255,255,255,0.4)'}
+          strokeWidth="0.8"
+          style={{ transition: 'fill 0.3s, stroke 0.3s' }}
         />
-      ))}
-
-      {/* Click bursts */}
-      {bursts.map(b => <ClickBurst key={b.id} x={b.x} y={b.y} />)}
-    </>
-  );
-}
-
-function ClickBurst({ x, y }) {
-  return (
-    <div className="fixed pointer-events-none z-[9999]" style={{ left: x, top: y }}>
-      {Array(10).fill(0).map((_, i) => {
-        const angle = (i / 10) * 360;
-        const color = i % 2 === 0 ? '#9DCDDC' : '#C774B2';
-        return (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              width: 5, height: 5,
-              borderRadius: '50%',
-              background: color,
-              boxShadow: `0 0 8px ${color}`,
-              transform: 'translate(-50%,-50%)',
-              animation: 'burstParticle 0.75s ease-out forwards',
-              '--deg': `${angle}deg`,
-            }}
-          />
-        );
-      })}
+      </svg>
     </div>
   );
 }
+

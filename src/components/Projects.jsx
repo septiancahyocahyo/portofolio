@@ -85,8 +85,8 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative py-28 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, rgba(10,31,58,0.55) 0%, rgba(6,43,67,0.45) 40%, rgba(10,31,58,0.55) 100%)' }}
+      className="relative py-28 px-6 lg:px-40 overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #09090b 0%, #121215 40%, #09090b 100%)' }}
     >
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-nebula-deepest/20 blur-[120px] pointer-events-none" />
 
@@ -95,10 +95,10 @@ export default function Projects() {
         {/* Header */}
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, y: -40, clipPath: 'inset(100% 0 0 0)' }}
+          whileInView={{ opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)' }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
         >
           <p className="section-tag mb-3">&gt;_ Featured Projects</p>
           <h2 className="section-heading">
@@ -110,10 +110,10 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        {/* Projects grid */}
-        <div className="grid md:grid-cols-2 gap-7">
+        {/* Projects list */}
+        <div className="flex flex-col mt-12 border-t border-space-blue/10">
           {projects.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={i} />
+            <ProjectRow key={project.name} project={project} index={i} />
           ))}
         </div>
       </div>
@@ -121,116 +121,41 @@ export default function Projects() {
   );
 }
 
-function ProjectCard({ project, index }) {
-  const Icon = project.icon;
-  const cardRef = useRef(null);
-  const glowRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    const el = cardRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;   // 0–1
-    const y = (e.clientY - rect.top)  / rect.height;  // 0–1
-    const rotY =  (x - 0.5) * 18;
-    const rotX = -(y - 0.5) * 14;
-    el.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03) translateZ(8px)`;
-    el.style.transition = 'transform 0.05s linear';
-    if (glowRef.current) {
-      glowRef.current.style.background =
-        `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.07) 0%, transparent 55%)`;
-    }
-  };
-
-  const handleMouseLeave = () => {
-    const el = cardRef.current;
-    if (!el) return;
-    el.style.transform = '';
-    el.style.transition = 'transform 0.7s cubic-bezier(.23,1,.32,1), box-shadow 0.4s ease';
-    if (glowRef.current) glowRef.current.style.background = 'none';
-  };
-
+function ProjectRow({ project, index }) {
   return (
     <motion.div
-      ref={cardRef}
-      className="tilt-card group relative rounded-2xl overflow-hidden cursor-default"
-      style={{
-        background: project.gradient,
-        border: `1px solid ${project.accentColor}33`,
-        boxShadow: `0 0 30px ${project.glowColor}`,
+      className="py-12 border-b border-space-blue/10 flex flex-col lg:flex-row gap-8 items-start justify-between group"
+      initial={{
+        opacity: 0,
+        x: index % 2 === 0 ? -80 : 80,
+        rotateX: 8,
+        scale: 0.97,
       }}
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      whileInView={{ opacity: 1, x: 0, rotateX: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
     >
-      {/* Top accent line */}
-      <div
-        className="h-px w-full"
-        style={{ background: `linear-gradient(90deg, transparent, ${project.accentColor}, transparent)` }}
-      />
-
-      {/* Mouse-tracking inner glow */}
-      <div ref={glowRef} className="absolute inset-0 pointer-events-none rounded-2xl" />
-
-      <div className="p-7">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-5">
-          <div>
-            <span
-              className="inline-block px-2.5 py-1 rounded-full font-mono text-[10px] uppercase tracking-wider mb-3"
-              style={{ background: `${project.accentColor}18`, border: `1px solid ${project.accentColor}40`, color: project.accentColor }}
-            >
-              {project.badge}
-            </span>
-            <h3
-              className="text-2xl font-sans font-bold text-white"
-              style={{ textShadow: `0 0 20px ${project.glowColor}` }}
-            >
-              {project.name}
-            </h3>
-            <p className="text-space-pale/60 text-sm mt-1">{project.subtitle}</p>
-          </div>
-          <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ml-3 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-            style={{
-              background: `linear-gradient(135deg, ${project.accentColor}28, ${project.accentColor}10)`,
-              border: `1px solid ${project.accentColor}44`,
-              boxShadow: `0 0 20px ${project.glowColor}`,
-            }}
-          >
-            <Icon size={22} style={{ color: project.accentColor }} />
-          </div>
+      {/* Left Column: Number and Name */}
+      <div className="flex-1 min-w-[280px]">
+        <div className="font-mono text-[10px] text-space-blue/50 uppercase tracking-widest mb-3">
+          0{index + 1} &mdash; {project.badge}
         </div>
+        <h3 className="text-3xl md:text-4xl font-serif font-light text-white group-hover:text-space-light transition-colors duration-300">
+          {project.name}
+        </h3>
+        <p className="text-space-pale/50 text-sm mt-2 font-light">{project.subtitle}</p>
+      </div>
 
-        <p className="text-space-pale/65 text-sm leading-relaxed mb-6">{project.description}</p>
-
-        {/* Features */}
-        <div className="grid grid-cols-2 gap-2 mb-6">
-          {project.features.map((f, fi) => (
-            <div key={fi} className="flex items-start gap-2 text-xs text-space-pale/60">
-              <span
-                className="mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style={{ background: project.accentColor, boxShadow: `0 0 5px ${project.accentColor}` }}
-              />
-              {f}
-            </div>
-          ))}
-        </div>
-
+      {/* Right Column: Details */}
+      <div className="flex-[1.5] max-w-2xl w-full">
+        <p className="text-space-pale/75 text-base leading-relaxed mb-6 font-light">{project.description}</p>
+        
         {/* Tags */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mb-6">
           {project.tags.map(tag => (
             <span
               key={tag}
-              className="px-2.5 py-1 rounded-lg font-mono text-[11px] transition-all duration-200"
-              style={{
-                background: `${project.accentColor}14`,
-                border: `1px solid ${project.accentColor}30`,
-                color: project.accentColor,
-              }}
+              className="px-3 py-1 font-mono text-[10px] text-space-light bg-space-medium/30 border border-space-blue/10"
             >
               {tag}
             </span>
@@ -243,23 +168,13 @@ function ProjectCard({ project, index }) {
             href={project.href}
             target="_blank"
             rel="noreferrer"
-            onClick={e => e.stopPropagation()}
-            className="mt-5 flex items-center gap-2 font-mono text-xs transition-all duration-200 w-fit"
-            style={{ color: project.accentColor }}
-            onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.3)'}
-            onMouseLeave={e => e.currentTarget.style.filter = ''}
+            className="inline-flex items-center gap-2 font-mono text-xs text-space-blue hover:text-white transition-colors duration-200"
           >
             <FiExternalLink size={13} />
             {project.href.replace('https://', '')}
           </a>
         )}
       </div>
-
-      {/* Bottom accent line on hover */}
-      <div
-        className="h-px w-0 group-hover:w-full transition-all duration-500"
-        style={{ background: `linear-gradient(90deg, transparent, ${project.accentColor}, transparent)` }}
-      />
     </motion.div>
   );
 }

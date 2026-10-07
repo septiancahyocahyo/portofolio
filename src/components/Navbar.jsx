@@ -35,7 +35,7 @@ export default function Navbar() {
     <nav
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={scrolled
-        ? { background: 'rgba(6,43,67,0.75)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(86,146,169,0.2)', padding: '12px 0' }
+        ? { background: 'rgba(9,9,11,0.85)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(197, 168, 128, 0.1)', padding: '12px 0' }
         : { padding: '20px 0' }
       }
     >
@@ -43,12 +43,11 @@ export default function Navbar() {
         {/* Logo */}
         <a href="#home" className="flex items-center gap-3 group">
           <div
-            className="w-9 h-9 rounded-full flex items-center justify-center font-mono font-bold text-sm text-white transition-all duration-300 group-hover:scale-110"
-            style={{ background: 'linear-gradient(135deg, #044568, #7B347E)', boxShadow: '0 0 15px rgba(86,146,169,0.4)' }}
+            className="w-9 h-9 flex items-center justify-center font-serif text-sm text-space-blue border border-space-blue/20 transition-all duration-300 group-hover:scale-110"
           >
             SC
           </div>
-          <span className="hidden sm:block font-sans font-semibold text-white text-sm tracking-wide">
+          <span className="hidden sm:block font-serif text-white text-sm tracking-wide">
             Septian Cahyo
           </span>
         </a>
@@ -62,17 +61,16 @@ export default function Navbar() {
               <a
                 key={id}
                 href={link.href}
-                className="font-mono text-xs transition-all duration-200 relative"
+                className="font-mono text-[11px] uppercase tracking-wider transition-all duration-200 relative"
                 style={{
-                  color: isActive ? '#9DCDDC' : 'rgba(205,215,223,0.55)',
-                  textShadow: isActive ? '0 0 12px rgba(157,205,220,0.7)' : 'none',
+                  color: isActive ? '#c5a880' : 'rgba(244,244,245,0.55)',
                 }}
               >
                 {link.label}
                 {isActive && (
                   <span
                     className="absolute -bottom-1 left-0 right-0 h-px"
-                    style={{ background: 'linear-gradient(90deg, transparent, #9DCDDC, transparent)' }}
+                    style={{ background: 'linear-gradient(90deg, transparent, #c5a880, transparent)' }}
                   />
                 )}
               </a>
@@ -80,7 +78,7 @@ export default function Navbar() {
           })}
           <a
             href="#contact"
-            className="btn-primary !px-5 !py-2 !text-sm ml-2"
+            className="btn-primary !px-5 !py-2 !text-xs uppercase tracking-wider ml-2"
           >
             Hire Me
           </a>
@@ -103,13 +101,13 @@ export default function Navbar() {
         className="md:hidden overflow-hidden transition-all duration-300"
         style={{ maxHeight: menuOpen ? '400px' : '0' }}
       >
-        <div className="mx-4 mt-2 rounded-2xl glass-card p-4">
+        <div className="mx-4 mt-2 rounded-none border border-space-blue/10 bg-space-medium/90 p-4">
           {NAV_LINKS.map(link => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="block py-2.5 px-3 font-mono text-sm text-space-pale/70 hover:text-space-light rounded-lg hover:bg-space-medium/20 transition-all duration-200"
+              className="block py-2.5 px-3 font-mono text-xs uppercase tracking-wider text-space-pale/70 hover:text-space-light hover:bg-space-medium/20 transition-all duration-200"
             >
               {link.label}
             </a>

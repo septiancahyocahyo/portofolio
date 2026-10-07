@@ -5,23 +5,24 @@ module.exports = {
     extend: {
       colors: {
         space: {
-          deepest: '#0A1F3A',
-          dark: '#062B43',
-          medium: '#044568',
-          blue: '#5692A9',
-          light: '#9DCDDC',
-          pale: '#CDD7DF',
+          deepest: '#09090b',
+          dark: '#141417',
+          medium: '#1c1c21',
+          blue: '#c5a880',
+          light: '#e2d1bc',
+          pale: '#f4f4f5',
         },
         nebula: {
-          deepest: '#210535',
-          dark: '#420D4A',
-          medium: '#7B347E',
-          pink: '#C774B2',
-          light: '#F4D5E0',
+          deepest: '#141217',
+          dark: '#1a1820',
+          medium: '#8e7960',
+          pink: '#b39274',
+          light: '#eae6e0',
         },
       },
       fontFamily: {
-        sans: ['Space Grotesk', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        serif: ['"Playfair Display"', 'serif'],
         mono: ['Space Mono', 'Menlo', 'monospace'],
       },
       keyframes: {

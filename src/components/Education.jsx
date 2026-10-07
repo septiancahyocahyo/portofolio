@@ -17,7 +17,7 @@ export default function Education() {
     <section
       id="education"
       className="relative py-28 px-6 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, rgba(10,31,58,0.55) 0%, rgba(6,43,67,0.45) 50%, rgba(10,31,58,0.55) 100%)' }}
+      style={{ background: 'linear-gradient(180deg, #09090b 0%, #121215 50%, #09090b 100%)' }}
     >
       <div className="absolute top-1/2 left-0 w-72 h-72 rounded-full bg-nebula-dark/15 blur-[100px] pointer-events-none" />
 
@@ -26,10 +26,10 @@ export default function Education() {
         {/* Header */}
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, y: 50, scale: 0.85 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1.1, ease: [0.34, 1.56, 0.64, 1] }}
         >
           <p className="section-tag mb-3">&gt;_ Education</p>
           <h2 className="section-heading">
@@ -38,95 +38,69 @@ export default function Education() {
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-start mt-12">
 
-          {/* Education card */}
+          {/* Education column */}
           <motion.div
-            className="glass-card rounded-2xl p-8"
-            style={{ boxShadow: '0 0 40px rgba(86,146,169,0.15)' }}
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="lg:border-r border-space-blue/10 lg:pr-16"
+            initial={{ opacity: 0, x: -70, rotateY: -10 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            whileHover={{ boxShadow: '0 0 60px rgba(86,146,169,0.3)', y: -4 }}
+            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* Top line */}
-            <div className="h-px mb-6" style={{ background: 'linear-gradient(90deg, #5692A9, #9DCDDC, transparent)' }} />
-
-            <div className="flex items-start gap-4 mb-6">
-              <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #044568, #5692A9)', boxShadow: '0 0 20px rgba(86,146,169,0.4)' }}
-              >
-                <FiBook size={24} className="text-white" />
-              </div>
-              <div>
-                <h3 className="font-sans font-bold text-white text-lg leading-snug">
-                  Universitas Negeri Yogyakarta
-                </h3>
-                <p className="text-space-blue text-sm mt-1">Jakarta, Indonesia</p>
-              </div>
+            <div className="flex items-center gap-3 mb-6">
+              <FiBook size={16} className="text-space-blue" />
+              <h3 className="font-serif font-light text-white text-xl">Academic Qualification</h3>
             </div>
 
             <div className="mb-6">
-              <p className="text-space-pale/80 font-semibold">Bachelor of Engineering (B.Eng.)</p>
-              <p className="text-space-light text-sm">Information Technology</p>
-              <p className="text-space-pale/45 font-mono text-xs mt-1">Aug 2021 – Aug 2025</p>
+              <h4 className="text-2xl font-serif font-light text-white leading-tight">Universitas Negeri Yogyakarta</h4>
+              <p className="text-space-blue text-sm mt-1">Yogyakarta, Indonesia</p>
+              <p className="text-space-pale/80 font-medium mt-3">Bachelor of Engineering (B.Eng.)</p>
+              <p className="text-space-light text-sm">Information Technology &bull; Aug 2021 – Aug 2025</p>
             </div>
 
             {/* Achievements */}
-            <div className="space-y-4">
+            <div className="space-y-4 mt-8">
               <AchievementBadge
                 label="GPA"
                 value="3.78/4.00"
-                color="#9DCDDC"
+                color="#e2d1bc"
                 description="Cumulative Grade Point Average"
               />
               <AchievementBadge
-                label="ProTEFL UNY"
+                label="ProTEFL Score"
                 value="563/677"
-                color="#C774B2"
+                color="#b39274"
                 description="English Proficiency Test"
               />
             </div>
           </motion.div>
 
-          {/* Organization card */}
+          {/* Organization column */}
           <motion.div
-            className="glass-card-nebula rounded-2xl p-8"
-            style={{ boxShadow: '0 0 40px rgba(123,52,126,0.15)' }}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: 70, rotateY: 10 }}
+            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            whileHover={{ boxShadow: '0 0 60px rgba(199,116,178,0.25)', y: -4 }}
+            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
           >
-            {/* Top line */}
-            <div className="h-px mb-6" style={{ background: 'linear-gradient(90deg, #C774B2, #7B347E, transparent)' }} />
+            <div className="flex items-center gap-3 mb-6">
+              <FiAward size={16} className="text-space-blue" />
+              <h3 className="font-serif font-light text-white text-xl">Leadership Experience</h3>
+            </div>
 
-            <div className="flex items-start gap-4 mb-6">
-              <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #420D4A, #7B347E)', boxShadow: '0 0 20px rgba(123,52,126,0.4)' }}
-              >
-                <FiAward size={24} className="text-white" />
-              </div>
-              <div>
-                <h3 className="font-sans font-bold text-white text-sm leading-snug">
-                  {org.name}
-                </h3>
-                <p className="text-nebula-pink text-sm mt-1">{org.role}</p>
-                <p className="text-space-pale/45 font-mono text-xs mt-0.5">{org.period}</p>
-              </div>
+            <div className="mb-6">
+              <h4 className="text-xl font-serif font-light text-white leading-snug">
+                {org.name}
+              </h4>
+              <p className="text-space-blue text-sm mt-1">{org.role}</p>
+              <p className="text-space-pale/45 font-mono text-xs mt-0.5">{org.period}</p>
             </div>
 
             <ul className="space-y-3">
               {org.highlights.map((h, i) => (
-                <li key={i} className="flex gap-3 text-space-pale/65 text-sm leading-relaxed">
-                  <span
-                    className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
-                    style={{ background: '#C774B2', boxShadow: '0 0 6px #C774B2' }}
-                  />
+                <li key={i} className="flex gap-3 text-space-pale/65 text-sm leading-relaxed font-light">
+                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-space-blue flex-shrink-0" />
                   {h}
                 </li>
               ))}
@@ -138,19 +112,17 @@ export default function Education() {
   );
 }
 
-function AchievementBadge({ label, value, color, description }) {
+function AchievementBadge({ label, value, description }) {
   return (
     <div
-      className="flex items-center justify-between p-4 rounded-xl"
-      style={{ background: `${color}12`, border: `1px solid ${color}30` }}
+      className="flex items-center justify-between p-4 border border-space-blue/10 bg-space-medium/10"
     >
       <div>
-        <p className="font-mono text-xs uppercase tracking-wider" style={{ color: `${color}99` }}>{label}</p>
-        <p className="text-xs text-space-pale/50 mt-0.5">{description}</p>
+        <p className="font-mono text-[9px] uppercase tracking-wider text-space-blue/70">{label}</p>
+        <p className="text-[11px] text-space-pale/50 mt-0.5 font-light">{description}</p>
       </div>
       <p
-        className="text-2xl font-bold font-mono"
-        style={{ color, textShadow: `0 0 15px ${color}80` }}
+        className="text-xl font-serif font-light text-white"
       >
         {value}
       </p>

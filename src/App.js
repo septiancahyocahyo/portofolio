@@ -1,6 +1,5 @@
 import './App.css';
 import Cursor from './components/Cursor';
-import StarField from './components/StarField';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -13,10 +12,9 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="relative overflow-x-hidden scanlines" style={{ background: '#060D1A' }}>
+    <div className="relative overflow-x-hidden scanlines" style={{ background: '#09090b' }}>
       <Cursor />
       <div className="noise-overlay" />
-      <StarField />
       <Navbar />
       <main style={{ position: 'relative', zIndex: 1 }}>
         <Hero />
