@@ -17,7 +17,7 @@ const projects = [
       'Real-time monitoring & automated alerts',
     ],
     tags: ['TypeScript', 'React.js', 'Zustand', 'TanStack Query', 'Tailwind CSS'],
-    href: null,
+    href: 'https://itjen.kemnaker.go.id/sinergi',
   },
   {
     index: '02',
@@ -33,13 +33,13 @@ const projects = [
       'Role-based access and protected routes',
     ],
     tags: ['PHP', 'MVC', 'Chart.js', 'REST API', 'JWT'],
-    href: null,
+    href: 'https://itjen.kemnaker.go.id/sistem-pengawasan',
   },
   {
     index: '03',
     name: 'Itjen Kemnaker Portal',
     subtitle: 'Company Profile & Content Management System',
-    sector: 'Government · Kemnaker · Live',
+    sector: 'Government · Kemnaker · Deployed',
     description:
       'A responsive company profile website for the Inspectorate General of the Ministry of Manpower. Features public-facing pages (Home, News, Profile, Publications, Regulations) and a full admin CMS.',
     features: [
