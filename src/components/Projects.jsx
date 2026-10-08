@@ -8,6 +8,12 @@ import sinergi2_2 from '../image/sinergi2.2.png';
 import sinergi3 from '../image/sinergi3.png';
 import sinergi4 from '../image/sinergi4.png';
 import sinergi5 from '../image/sinergi5.png';
+import itjen1 from '../image/itjen1.png';
+import itjen2 from '../image/itjen2.png';
+import itjen3 from '../image/itjen3.png';
+import itjen4 from '../image/itjen4.png';
+import itjen5 from '../image/itjen5.png';
+import itjen6 from '../image/itjen6.png';
 
 const projects = [
   {
@@ -26,12 +32,12 @@ const projects = [
     tags: ['TypeScript', 'React.js', 'Zustand', 'TanStack Query', 'Tailwind CSS'],
     href: 'https://itjen.kemnaker.go.id/sinergi',
     images: [
-      { src: sinergi1, name: 'sinergi1.png', label: 'Gambar 1' },
-      { src: sinergi2_1, name: 'sinergi2.1.png', label: 'Gambar 2.1' },
-      { src: sinergi2_2, name: 'sinergi2.2.png', label: 'Gambar 2.2' },
-      { src: sinergi3, name: 'sinergi3.png', label: 'Gambar 3' },
-      { src: sinergi4, name: 'sinergi4.png', label: 'Gambar 4' },
-      { src: sinergi5, name: 'sinergi5.png', label: 'Gambar 5' },
+      { src: sinergi1, name: 'sinergi1.png', label: 'Login' },
+      { src: sinergi2_1, name: 'sinergi2.1.png', label: 'Dashboard' },
+      { src: sinergi2_2, name: 'sinergi2.2.png', label: 'Dashboard' },
+      { src: sinergi3, name: 'sinergi3.png', label: 'Notification' },
+      { src: sinergi4, name: 'sinergi4.png', label: 'Kegiatan' },
+      { src: sinergi5, name: 'sinergi5.png', label: 'Credits' },
     ],
   },
   {
@@ -66,7 +72,14 @@ const projects = [
     ],
     tags: ['React.js', 'REST API', 'Tailwind CSS', 'CMS'],
     href: 'https://itjen.kemnaker.go.id',
-    images: [],
+    images: [
+      { src: itjen1, name: 'itjen1.png', label: 'Home' },
+      { src: itjen2, name: 'itjen2.png', label: 'News' },
+      { src: itjen3, name: 'itjen3.png', label: 'Profile' },
+      { src: itjen4, name: 'itjen4.png', label: 'Regulations' },
+      { src: itjen5, name: 'itjen5.png', label: 'Admin' },
+      { src: itjen6, name: 'itjen6.png', label: 'Admin' },
+    ],
   },
   {
     index: '04',
@@ -442,7 +455,8 @@ export default function Projects() {
                   {lightbox.projectName}
                 </span>
                 <h4 className="font-sans text-sm font-medium text-white">
-                  {lightbox.images[lightbox.index].label} ({lightbox.images[lightbox.index].name})
+                  {lightbox.images[lightbox.index].label}
+                  {/* ({lightbox.images[lightbox.index].name}) */}
                 </h4>
               </div>
               <div className="flex items-center gap-4">
