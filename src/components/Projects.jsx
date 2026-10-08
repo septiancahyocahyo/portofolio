@@ -1,6 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiExternalLink } from 'react-icons/fi';
+import { FiExternalLink, FiMaximize2, FiChevronLeft, FiChevronRight, FiX, FiImage } from 'react-icons/fi';
+
+import sinergi1 from '../image/sinergi1.png';
+import sinergi2_1 from '../image/sinergi2.1.png';
+import sinergi2_2 from '../image/sinergi2.2.png';
+import sinergi3 from '../image/sinergi3.png';
+import sinergi4 from '../image/sinergi4.png';
+import sinergi5 from '../image/sinergi5.png';
 
 const projects = [
   {
@@ -18,6 +25,14 @@ const projects = [
     ],
     tags: ['TypeScript', 'React.js', 'Zustand', 'TanStack Query', 'Tailwind CSS'],
     href: 'https://itjen.kemnaker.go.id/sinergi',
+    images: [
+      { src: sinergi1, name: 'sinergi1.png', label: 'Gambar 1' },
+      { src: sinergi2_1, name: 'sinergi2.1.png', label: 'Gambar 2.1' },
+      { src: sinergi2_2, name: 'sinergi2.2.png', label: 'Gambar 2.2' },
+      { src: sinergi3, name: 'sinergi3.png', label: 'Gambar 3' },
+      { src: sinergi4, name: 'sinergi4.png', label: 'Gambar 4' },
+      { src: sinergi5, name: 'sinergi5.png', label: 'Gambar 5' },
+    ],
   },
   {
     index: '02',
@@ -34,6 +49,7 @@ const projects = [
     ],
     tags: ['PHP', 'MVC', 'Chart.js', 'REST API', 'JWT'],
     href: 'https://itjen.kemnaker.go.id/sistem-pengawasan',
+    images: [],
   },
   {
     index: '03',
@@ -50,6 +66,7 @@ const projects = [
     ],
     tags: ['React.js', 'REST API', 'Tailwind CSS', 'CMS'],
     href: 'https://itjen.kemnaker.go.id',
+    images: [],
   },
   {
     index: '04',
@@ -66,6 +83,7 @@ const projects = [
     ],
     tags: ['React.js', 'CoreUI', 'Figma', 'Chart.js', 'RESTful API'],
     href: null,
+    images: [],
   },
 ];
 
@@ -78,6 +96,35 @@ const fadeUp = (delay = 0) => ({
 
 export default function Projects() {
   const [expanded, setExpanded] = useState(null);
+  const [lightbox, setLightbox] = useState(null); // { images: [], index: number, projectName: string }
+
+  const handleNextImage = useCallback(() => {
+    if (!lightbox) return;
+    setLightbox((prev) => ({
+      ...prev,
+      index: (prev.index + 1) % prev.images.length,
+    }));
+  }, [lightbox]);
+
+  const handlePrevImage = useCallback(() => {
+    if (!lightbox) return;
+    setLightbox((prev) => ({
+      ...prev,
+      index: (prev.index - 1 + prev.images.length) % prev.images.length,
+    }));
+  }, [lightbox]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!lightbox) return;
+      if (e.key === 'Escape') setLightbox(null);
+      if (e.key === 'ArrowRight') handleNextImage();
+      if (e.key === 'ArrowLeft') handlePrevImage();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightbox, handleNextImage, handlePrevImage]);
 
   return (
     <section
@@ -107,6 +154,8 @@ export default function Projects() {
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           {projects.map((project, i) => {
             const isOpen = expanded === project.index;
+            const hasImages = project.images && project.images.length > 0;
+
             return (
               <motion.div
                 key={project.index}
@@ -153,6 +202,14 @@ export default function Projects() {
                         >
                           {project.name}
                         </h3>
+                        {hasImages && (
+                          <span
+                            className="font-sans inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-gray-400 bg-white/5 border border-white/10 px-2 py-0.5 rounded-full"
+                          >
+                            <FiImage size={10} />
+                            {project.images.length} Screenshots
+                          </span>
+                        )}
                         {project.href && (
                           <a
                             href={project.href}
@@ -228,84 +285,136 @@ export default function Projects() {
                       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                       style={{ overflow: 'hidden' }}
                     >
-                      <div
-                        style={{
-                          paddingBottom: '2.5rem',
-                          paddingLeft: '3.5rem',
-                          display: 'grid',
-                          gridTemplateColumns: '1fr 1fr',
-                          gap: '2.5rem',
-                        }}
-                        className="grid-cols-1 md:grid-cols-2"
-                      >
-                        {/* Description */}
-                        <div>
-                          <p
-                            className="font-sans mb-5"
-                            style={{ fontSize: '13px', color: '#787878', lineHeight: 1.85, fontWeight: 300 }}
-                          >
-                            {project.description}
-                          </p>
+                      <div className="pb-10 pl-0 md:pl-14 space-y-8">
+                        {/* Description & Features Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          {/* Description */}
+                          <div>
+                            <p
+                              className="font-sans mb-5"
+                              style={{ fontSize: '13px', color: '#787878', lineHeight: 1.85, fontWeight: 300 }}
+                            >
+                              {project.description}
+                            </p>
 
-                          {/* Tags */}
-                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '1.25rem' }}>
-                            {project.tags.map(tag => (
-                              <span
-                                key={tag}
-                                className="font-sans"
-                                style={{
-                                  fontSize: '9px',
-                                  letterSpacing: '0.12em',
-                                  textTransform: 'uppercase',
-                                  color: '#b3b3b3ff',
-                                  border: '1px solid rgba(255,255,255,0.07)',
-                                  padding: '4px 10px',
-                                }}
+                            {/* Tags */}
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '1.25rem' }}>
+                              {project.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="font-sans"
+                                  style={{
+                                    fontSize: '9px',
+                                    letterSpacing: '0.12em',
+                                    textTransform: 'uppercase',
+                                    color: '#b3b3b3ff',
+                                    border: '1px solid rgba(255,255,255,0.07)',
+                                    padding: '4px 10px',
+                                  }}
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+
+                            {project.href && (
+                              <a
+                                href={project.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="font-sans inline-flex items-center gap-1.5 hover:text-white transition-colors duration-200"
+                                style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#ffffffff' }}
                               >
-                                {tag}
-                              </span>
-                            ))}
+                                <FiExternalLink size={10} />
+                                {project.href.replace('https://', '')}
+                              </a>
+                            )}
                           </div>
 
-                          {project.href && (
-                            <a
-                              href={project.href}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="font-sans inline-flex items-center gap-1.5 hover:text-white transition-colors duration-200"
-                              style={{ fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#ffffffff' }}
+                          {/* Features list */}
+                          <div>
+                            <p
+                              className="font-sans"
+                              style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#7c7c7cff', marginBottom: '1rem' }}
                             >
-                              <FiExternalLink size={10} />
-                              {project.href.replace('https://', '')}
-                            </a>
-                          )}
+                              Key Features
+                            </p>
+                            <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                              {project.features.map((f, fi) => (
+                                <li
+                                  key={fi}
+                                  style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}
+                                >
+                                  <span style={{ marginTop: '9px', width: '4px', height: '1px', background: 'rgba(255,255,255,0.15)', flexShrink: 0 }} />
+                                  <span
+                                    className="font-sans"
+                                    style={{ fontSize: '12px', color: '#666666', lineHeight: 1.7, fontWeight: 300 }}
+                                  >
+                                    {f}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         </div>
 
-                        {/* Features list */}
-                        <div>
-                          <p
-                            className="font-sans"
-                            style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#7c7c7cff', marginBottom: '1rem' }}
-                          >
-                            Key Features
-                          </p>
-                          <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                            {project.features.map((f, fi) => (
-                              <li
-                                key={fi}
-                                style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}
-                              >
-                                <span style={{ marginTop: '9px', width: '4px', height: '1px', background: 'rgba(255,255,255,0.15)', flexShrink: 0 }} />
+                        {/* Screenshots Gallery Section */}
+                        {hasImages && (
+                          <div className="pt-4 border-t border-white/5">
+                            <div className="flex items-center justify-between mb-4">
+                              <div className="flex items-center gap-2">
+                                <FiImage className="text-gray-400" size={14} />
                                 <span
-                                  className="font-sans"
-                                  style={{ fontSize: '12px', color: '#666666', lineHeight: 1.7, fontWeight: 300 }}
+                                  className="font-sans text-[10px] tracking-[0.2em] uppercase text-gray-400 font-medium"
                                 >
-                                  {f}
+                                  Project Screenshots
                                 </span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                              </div>
+                              <span className="font-sans text-[10px] text-gray-500 tracking-wider">
+                                Klik gambar untuk memperbesar
+                              </span>
+                            </div>
+
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                              {project.images.map((img, imgIdx) => (
+                                <motion.button
+                                  key={imgIdx}
+                                  whileHover={{ scale: 1.02 }}
+                                  whileTap={{ scale: 0.98 }}
+                                  onClick={() =>
+                                    setLightbox({
+                                      images: project.images,
+                                      index: imgIdx,
+                                      projectName: project.name,
+                                    })
+                                  }
+                                  className="group relative rounded-lg overflow-hidden border border-white/10 bg-neutral-900 aspect-[16/10] text-left focus:outline-none transition-all duration-300 hover:border-white/30 hover:shadow-xl hover:shadow-white/5"
+                                >
+                                  <img
+                                    src={img.src}
+                                    alt={`${project.name} - ${img.label}`}
+                                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                                  
+                                  {/* Zoom Overlay Icon */}
+                                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <div className="w-9 h-9 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-lg transform group-hover:scale-110 transition-transform">
+                                      <FiMaximize2 size={14} />
+                                    </div>
+                                  </div>
+
+                                  {/* Bottom Label Badge */}
+                                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white">
+                                    <span className="font-sans text-[11px] font-medium tracking-wide drop-shadow-md bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded border border-white/10">
+                                      {img.label}
+                                    </span>
+                                  </div>
+                                </motion.button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </motion.div>
                   )}
@@ -315,6 +424,107 @@ export default function Projects() {
           })}
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightbox(null)}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-between p-4 md:p-8"
+          >
+            {/* Top Bar */}
+            <div className="w-full max-w-6xl flex items-center justify-between text-white border-b border-white/10 pb-4">
+              <div>
+                <span className="font-sans text-xs tracking-widest uppercase text-gray-400">
+                  {lightbox.projectName}
+                </span>
+                <h4 className="font-sans text-sm font-medium text-white">
+                  {lightbox.images[lightbox.index].label} ({lightbox.images[lightbox.index].name})
+                </h4>
+              </div>
+              <div className="flex items-center gap-4">
+                <span className="font-sans text-xs tracking-wider text-gray-400">
+                  {lightbox.index + 1} / {lightbox.images.length}
+                </span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setLightbox(null);
+                  }}
+                  className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                  aria-label="Close modal"
+                >
+                  <FiX size={18} />
+                </button>
+              </div>
+            </div>
+
+            {/* Main Image Container */}
+            <div
+              className="relative flex-1 w-full max-w-6xl flex items-center justify-center py-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Prev Button */}
+              <button
+                onClick={handlePrevImage}
+                className="absolute left-2 md:left-4 z-10 p-3 rounded-full bg-black/60 border border-white/20 text-white hover:bg-white/20 hover:scale-110 transition-all shadow-2xl"
+                aria-label="Previous image"
+              >
+                <FiChevronLeft size={22} />
+              </button>
+
+              {/* Image */}
+              <motion.img
+                key={lightbox.index}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.25 }}
+                src={lightbox.images[lightbox.index].src}
+                alt={lightbox.images[lightbox.index].label}
+                className="max-h-[75vh] max-w-full object-contain rounded-lg border border-white/10 shadow-2xl"
+              />
+
+              {/* Next Button */}
+              <button
+                onClick={handleNextImage}
+                className="absolute right-2 md:right-4 z-10 p-3 rounded-full bg-black/60 border border-white/20 text-white hover:bg-white/20 hover:scale-110 transition-all shadow-2xl"
+                aria-label="Next image"
+              >
+                <FiChevronRight size={22} />
+              </button>
+            </div>
+
+            {/* Bottom Thumbnail Bar */}
+            <div
+              className="w-full max-w-4xl flex items-center justify-center gap-2 overflow-x-auto pt-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {lightbox.images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setLightbox((prev) => ({ ...prev, index: idx }))}
+                  className={`relative rounded overflow-hidden border transition-all h-12 w-20 flex-shrink-0 ${
+                    idx === lightbox.index
+                      ? 'border-white ring-2 ring-white/50 scale-105 opacity-100'
+                      : 'border-white/20 opacity-50 hover:opacity-80'
+                  }`}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.label}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
+
